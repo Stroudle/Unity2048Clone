@@ -1,0 +1,216 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "e3359e51-cbdb-4eb3-8347-e1fc2731e0cd",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "e0ced228-5488-4ac4-a74a-91ca18b0d763",
+                    "expectedControlType": "Vector2",
+                    "processors": "ScaleVector2",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Arrows",
+                    "id": "89edcc16-2851-4f97-81a2-9622828dddd5",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "bdebdb18-232e-471d-8351-738fde8118fd",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "6acaed8f-fccc-4d33-adbb-9db92472bbf8",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "b12d7bb5-09d4-418b-81bc-6a37816f55a3",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "996df42b-62f9-4cda-acfe-3058efccc587",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "WASD",
+                    "id": "9b558ff4-0c69-45c8-a8fd-56c5503fcf12",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "63756881-783f-418c-be9c-65b9faa18633",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "0bc1bdd2-43a4-4cc7-975f-3ffffa4b2227",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "7bcfaa39-1f0e-4be0-9fa5-b6fda96918dc",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e91d53eb-dccb-44bd-8ca7-4d32ca4be211",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Touch",
+                    "id": "a5cf63ed-a580-41f3-bdac-cfc664b92d46",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "9d1c67ca-d8b7-42c5-9963-bad0819fb99d",
+                    "path": "<Touchscreen>/delta/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "f4aee391-14a8-4e07-b8bf-541b7c638115",
+                    "path": "<Touchscreen>/delta/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "65c25de2-f1eb-473d-82be-3abcea192069",
+                    "path": "<Touchscreen>/delta/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c48918d1-4fb7-4aec-a86b-dc3b66ed0678",
+                    "path": "<Touchscreen>/delta/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Desktop",
+            "bindingGroup": "Desktop",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
