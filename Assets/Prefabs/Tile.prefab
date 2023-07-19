@@ -144,8 +144,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4708385984990620735}
-  - component: {fileID: 9051873308723826331}
+  - component: {fileID: 6974556952060274348}
   - component: {fileID: 8488556053170785342}
+  - component: {fileID: 9051873308723826331}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -174,14 +175,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 105, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &9051873308723826331
-CanvasRenderer:
+--- !u!114 &6974556952060274348
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5520201286583194818}
-  m_CullTransparentMesh: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a7b391f5b8df745a2dbedefb6aac17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8488556053170785342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,3 +217,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!222 &9051873308723826331
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5520201286583194818}
+  m_CullTransparentMesh: 1
