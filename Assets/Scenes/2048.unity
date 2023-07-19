@@ -2009,7 +2009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c24900cd6fa53438e857bd3b7cee9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 6974556952060274348, guid: f6fe8e5f14024ce4089bcc9c6ef75b10, type: 3}
+  _tilePrefab: {fileID: 6974556952060274348, guid: f6fe8e5f14024ce4089bcc9c6ef75b10, type: 3}
 --- !u!1001 &1645920849
 PrefabInstance:
   m_ObjectHideFlags: 0

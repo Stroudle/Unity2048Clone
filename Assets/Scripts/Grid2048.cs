@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class Grid2048 : MonoBehaviour
 {
-    public Row[] rows { get; private set; }
-    public Cell[] cells { get; private set; }
+    public Row[] Rows { get; private set; }
+    public Cell[] Cells { get; private set; }
 
-    public int size => cells.Length;
-    public int height => rows.Length;
-    public int width => size / height;
+    public int Size => Cells.Length;
+    public int Height => Rows.Length;
+    public int Width => Size / Height;
 
     public Cell GetAdjacentCell(Cell cell, Vector2Int direction)
     {
-        Vector2Int coordinates = cell.coordinates;
+        Vector2Int coordinates = cell.Coordinates;
         coordinates.x += direction.x;
         coordinates.y -= direction.y;
 
@@ -26,9 +26,9 @@ public class Grid2048 : MonoBehaviour
 
     public Cell GetCell(int x, int y)
     {
-        if(x >= 0 && x < width && y >= 0 && y < height)
+        if(x >= 0 && x < Width && y >= 0 && y < Height)
         {
-            return rows[y].cells[x];
+            return Rows[y].Cells[x];
         }
 
         return null;
@@ -37,14 +37,14 @@ public class Grid2048 : MonoBehaviour
     public Cell GetRandomEmptyCell()
     {
         System.Random random = new();
-        var emptyCells = cells.Where(cell => !cell.Occupied);
+        var emptyCells = Cells.Where(cell => !cell.Occupied);
         return emptyCells.OrderBy(_ => random.Next()).FirstOrDefault();
     }
 
     private void Awake()
     {
-        rows = GetComponentsInChildren<Row>();
-        cells = GetComponentsInChildren<Cell>();
+        Rows = GetComponentsInChildren<Row>();
+        Cells = GetComponentsInChildren<Cell>();
     }
 
     private void Start() 
@@ -54,11 +54,11 @@ public class Grid2048 : MonoBehaviour
 
     private void AssignCellCoordinates()
     {
-        for(int y = 0; y < height; y++)
+        for(int y = 0; y < Height; y++)
         {
-            for(int x = 0; x < rows[y].cells.Length; x++)
+            for(int x = 0; x < Rows[y].Cells.Length; x++)
             {
-                rows[y].cells[x].coordinates = new Vector2Int(x, y);
+                Rows[y].Cells[x].Coordinates = new Vector2Int(x, y);
             }
         }
     }

@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
-    public Cell cell { get; private set; }
-    public int number { get; private set; }
+    public Cell Cell { get; private set; }
+    public int Number { get; private set; }
 
-    private Image background;
-    private TextMeshProUGUI text;
+    private Image _background;
+    private TextMeshProUGUI _text;
 
     public void MoveTo(Cell cell)
     {
@@ -17,19 +17,19 @@ public class Tile : MonoBehaviour
 
     public void Spawn(Cell cell)
     {
-        if(this.cell != null)
+        if(this.Cell != null)
         {
-            this.cell.tile = null;
+            this.Cell.Tile = null;
         }
 
-        cell.tile = this;
+        cell.Tile = this;
         transform.position = cell.transform.position; 
-        this.cell = cell;
+        this.Cell = cell;
     }
 
     private void Awake()
     {
-        background= GetComponent<Image>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        _background= GetComponent<Image>();
+        _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 }

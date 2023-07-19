@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    public Vector2Int coordinates { get; set; }
-    public Tile tile { get; set; }
+    public Vector2Int Coordinates { get; set; }
+    public Tile Tile { get; set; }
 
-    public bool Empty => tile == null;
-    public bool Occupied => tile != null;
+    public bool Empty => Tile == null;
+    public bool Occupied => Tile != null;
 }

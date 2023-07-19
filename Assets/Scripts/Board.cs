@@ -4,17 +4,17 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [SerializeField]
-    private Tile tilePrefab;
+    private Tile _tilePrefab;
 
-    private Grid2048 grid;
-    private List<Tile> tiles;
+    private Grid2048 _grid;
+    private List<Tile> _tiles;
 
-    private const int START_TILES = 2;
+    private const int StartTiles = 2;
 
     private void Awake()
     {
-        grid = GetComponentInChildren<Grid2048>();
-        tiles = new List<Tile>(16);
+        _grid = GetComponentInChildren<Grid2048>();
+        _tiles = new List<Tile>(16);
     }
 
     private void Start() 
@@ -34,7 +34,7 @@ public class Board : MonoBehaviour
 
     private void SpawnTiles()
     {
-        for(int i = 0; i < START_TILES; i++)
+        for(int i = 0; i < StartTiles; i++)
         {
             SpawnTile();
         }
@@ -42,9 +42,9 @@ public class Board : MonoBehaviour
 
     private void SpawnTile()
     {
-        Tile tile = Instantiate(tilePrefab, grid.transform);
-        tile.Spawn(grid.GetRandomEmptyCell());
-        tiles.Add(tile);
+        Tile tile = Instantiate(_tilePrefab, _grid.transform);
+        tile.Spawn(_grid.GetRandomEmptyCell());
+        _tiles.Add(tile);
     }
 
     //modificar para input unity
@@ -72,21 +72,21 @@ public class Board : MonoBehaviour
 
     private void MoveTiles(Vector2Int direction)
     {
-        int xStart = direction.x == 1 ? 0 : (direction.x == -1 ? grid.width - 1 : 0);
+        int xStart = direction.x == 1 ? 0 : (direction.x == -1 ? _grid.Width - 1 : 0);
         int xIncrement = direction.x == 1 ? 1 : (direction.x == -1 ? -1 : 1);
 
-        int yStart = direction.y == 1 ? 0 : (direction.y == -1 ? grid.height - 1 : 0);
+        int yStart = direction.y == 1 ? 0 : (direction.y == -1 ? _grid.Height - 1 : 0);
         int yIncrement = direction.y == 1 ? 1 : (direction.y == -1 ? -1 : 1);
 
-        for(int x = xStart; x >= 0 && x < grid.width; x += xIncrement)
+        for(int x = xStart; x >= 0 && x < _grid.Width; x += xIncrement)
         {
-            for(int y = yStart; y >= 0 && y < grid.height; y += yIncrement)
+            for(int y = yStart; y >= 0 && y < _grid.Height; y += yIncrement)
             {
-                Cell cell = grid.GetCell(x, y);
+                Cell cell = _grid.GetCell(x, y);
 
                 if(cell.Occupied)
                 {
-                    MoveTile(cell.tile, direction);
+                    MoveTile(cell.Tile, direction);
                 }
             }
         }
@@ -95,7 +95,7 @@ public class Board : MonoBehaviour
     private void MoveTile(Tile tile, Vector2Int direction)
     {
         Cell destination = null;
-        Cell adjacent = grid.GetAdjacentCell(tile.cell, direction);
+        Cell adjacent = _grid.GetAdjacentCell(tile.Cell, direction);
 
         while(adjacent != null)
         {
@@ -105,7 +105,7 @@ public class Board : MonoBehaviour
             }
 
             destination  = adjacent;
-            adjacent = grid.GetAdjacentCell(adjacent, direction);
+            adjacent = _grid.GetAdjacentCell(adjacent, direction);
         }
 
         if(destination != null)
