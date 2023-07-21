@@ -6,24 +6,42 @@
             "id": "e3359e51-cbdb-4eb3-8347-e1fc2731e0cd",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "KeyboardInput",
                     "type": "Value",
                     "id": "e0ced228-5488-4ac4-a74a-91ca18b0d763",
                     "expectedControlType": "Vector2",
-                    "processors": "ScaleVector2",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TouchContact",
+                    "type": "PassThrough",
+                    "id": "80075d2c-1d97-4c51-a53f-7b750e9b734b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TouchPosition",
+                    "type": "PassThrough",
+                    "id": "1af5cb8c-e5c9-4b0b-bd29-75ed0dd07b24",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "Arrows",
+                    "name": "ArrowKeys",
                     "id": "89edcc16-2851-4f97-81a2-9622828dddd5",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -34,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -45,7 +63,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +74,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -78,7 +96,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -89,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -100,86 +118,53 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
                     "id": "7bcfaa39-1f0e-4be0-9fa5-b6fda96918dc",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
                     "id": "e91d53eb-dccb-44bd-8ca7-4d32ca4be211",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "Movement",
+                    "action": "KeyboardInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Touch",
-                    "id": "a5cf63ed-a580-41f3-bdac-cfc664b92d46",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "a2f9c590-ead0-4199-b326-5e2598568ae6",
+                    "path": "<Touchscreen>/primaryTouch/press",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
+                    "groups": "Mobile",
+                    "action": "TouchContact",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "9d1c67ca-d8b7-42c5-9963-bad0819fb99d",
-                    "path": "<Touchscreen>/delta/up",
+                    "name": "",
+                    "id": "3d9e9ed0-2d89-4d8b-ad73-61c9bb0b742d",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mobile",
-                    "action": "Movement",
+                    "action": "TouchPosition",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "f4aee391-14a8-4e07-b8bf-541b7c638115",
-                    "path": "<Touchscreen>/delta/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mobile",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "65c25de2-f1eb-473d-82be-3abcea192069",
-                    "path": "<Touchscreen>/delta/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mobile",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "c48918d1-4fb7-4aec-a86b-dc3b66ed0678",
-                    "path": "<Touchscreen>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mobile",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         }

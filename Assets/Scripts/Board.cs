@@ -24,12 +24,14 @@ public class Board : MonoBehaviour
 
     private void OnEnable()
     {
-        InputHandler.OnMovementInput += OnMovementInputHandler;
+        InputHandler.OnKeyboardInput += OnInputRecievedHandler;
+        SwipeDetection.OnSwipeInput += OnInputRecievedHandler;
     }
 
     private void OnDisable() 
     {
-        InputHandler.OnMovementInput -= OnMovementInputHandler;
+        InputHandler.OnKeyboardInput -= OnInputRecievedHandler;
+        SwipeDetection.OnSwipeInput += OnInputRecievedHandler;
     }
 
     private void SpawnTiles()
@@ -68,14 +70,18 @@ public class Board : MonoBehaviour
     //    }
     //}
 
-    private void OnMovementInputHandler(Vector2Int input) => MoveTiles(input);
+    private void OnInputRecievedHandler(Vector2Int input)
+    {
+        MoveTiles(input);
+    }
 
+    //TO-DO: bugfix array column, row, traversing signal positive, negative
     private void MoveTiles(Vector2Int direction)
     {
-        int xStart = direction.x == 1 ? 0 : (direction.x == -1 ? _grid.Width - 1 : 0);
+        int xStart = direction.x == 1 ? 0 : (direction.x == -1 ? (_grid.Width - 1) : 0);
         int xIncrement = direction.x == 1 ? 1 : (direction.x == -1 ? -1 : 1);
 
-        int yStart = direction.y == 1 ? 0 : (direction.y == -1 ? _grid.Height - 1 : 0);
+        int yStart = direction.y == 1 ? 0 : (direction.y == -1 ? (_grid.Height - 1) : 0);
         int yIncrement = direction.y == 1 ? 1 : (direction.y == -1 ? -1 : 1);
 
         for(int x = xStart; x >= 0 && x < _grid.Width; x += xIncrement)
