@@ -75,11 +75,10 @@ public class Board : MonoBehaviour
         MoveTiles(input);
     }
 
-    //TO-DO: bugfix array column, row, traversing signal positive, negative
     private void MoveTiles(Vector2Int direction)
     {
-        int xStart = direction.x == 1 ? 0 : (direction.x == -1 ? (_grid.Width - 1) : 0);
-        int xIncrement = direction.x == 1 ? 1 : (direction.x == -1 ? -1 : 1);
+        int xStart = direction.x == 1 ? (_grid.Width - 1) : (direction.x == -1 ? 0 : 0);
+        int xIncrement = direction.x == 1 ? -1 : (direction.x == -1 ? 1 : 1);
 
         int yStart = direction.y == 1 ? 0 : (direction.y == -1 ? (_grid.Height - 1) : 0);
         int yIncrement = direction.y == 1 ? 1 : (direction.y == -1 ? -1 : 1);
