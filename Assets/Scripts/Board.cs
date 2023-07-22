@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -8,8 +9,13 @@ public class Board : MonoBehaviour
 
     private Grid2048 _grid;
     private List<Tile> _tiles;
+    private System.Random _random = new System.Random();
 
     private const int StartTiles = 2;
+    private readonly (int TileValue, double Percentage) [] PossibleTileValues = {
+        (2, 90.0),
+        (4, 10.0),
+    };
 
     private void Awake()
     {
@@ -45,8 +51,24 @@ public class Board : MonoBehaviour
     private void SpawnTile()
     {
         Tile tile = Instantiate(_tilePrefab, _grid.transform);
+        tile.SetTileValue(GetRandomTileValue());
         tile.Spawn(_grid.GetRandomEmptyCell());
         _tiles.Add(tile);
+    }
+
+    private int GetRandomTileValue()
+    {
+        double randomNumber = _random.NextDouble() * 100;
+        double cumulativePercentage = 0;
+        foreach(var (tileValue, percentage) in PossibleTileValues)
+        {
+            cumulativePercentage += percentage;
+            if(randomNumber < cumulativePercentage)
+            {
+                return tileValue;
+            }
+        }
+        return PossibleTileValues[0].TileValue;
     }
 
     //modificar para input unity
@@ -94,6 +116,11 @@ public class Board : MonoBehaviour
                     MoveTile(cell.Tile, direction);
                 }
             }
+        }
+
+        if(_tiles.Count != _grid.Size)
+        {
+            SpawnTile();
         }
     }
 

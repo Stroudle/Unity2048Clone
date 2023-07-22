@@ -27,6 +27,12 @@ public class Tile : MonoBehaviour
         this.Cell = cell;
     }
 
+    public void SetTileValue(int tileNumber)
+    {
+        this.Number = tileNumber;
+        this._text.SetText(Number.ToString());
+    }
+
     private void Awake()
     {
         _background= GetComponent<Image>();
