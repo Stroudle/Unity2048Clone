@@ -10,6 +10,8 @@ public class Grid2048 : MonoBehaviour
     public int Height => Rows.Length;
     public int Width => Size / Height;
 
+    private System.Random _random = new System.Random();
+
     public Cell GetAdjacentCell(Cell cell, Vector2Int direction)
     {
         Vector2Int coordinates = cell.Coordinates;
@@ -36,9 +38,8 @@ public class Grid2048 : MonoBehaviour
 
     public Cell GetRandomEmptyCell()
     {
-        System.Random random = new();
         var emptyCells = Cells.Where(cell => !cell.Occupied);
-        return emptyCells.OrderBy(_ => random.Next()).FirstOrDefault();
+        return emptyCells.OrderBy(_ => _random.Next()).FirstOrDefault();
     }
 
     private void Awake()
