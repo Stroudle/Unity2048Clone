@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -11,7 +10,7 @@ public class Board : MonoBehaviour
     private List<Tile> _tiles;
     private System.Random _random = new System.Random();
 
-    private const int StartTiles = 2;
+    private const int InitialTileCount = 2;
     private readonly (int TileValue, double Percentage) [] PossibleTileValues = {
         (2, 90.0),
         (4, 10.0),
@@ -42,7 +41,7 @@ public class Board : MonoBehaviour
 
     private void SpawnTiles()
     {
-        for(int i = 0; i < StartTiles; i++)
+        for(int i = 0; i < InitialTileCount; i++)
         {
             SpawnTile();
         }
@@ -70,27 +69,6 @@ public class Board : MonoBehaviour
         }
         return PossibleTileValues[0].TileValue;
     }
-
-    //modificar para input unity
-    //private void Update()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.W))
-    //    {
-    //        MoveTiles(Vector2Int.up);
-    //    }
-    //    else if(Input.GetKeyDown(KeyCode.A))
-    //    {
-    //        MoveTiles(Vector2Int.left);
-    //    }
-    //    else if(Input.GetKeyDown(KeyCode.S))
-    //    {
-    //        MoveTiles(Vector2Int.down);
-    //    }
-    //    else if(Input.GetKeyDown(KeyCode.D))
-    //    {
-    //        MoveTiles(Vector2Int.right);
-    //    }
-    //}
 
     private void OnInputRecievedHandler(Vector2Int input)
     {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Tile : MonoBehaviour
 {
     public Cell Cell { get; private set; }
-    public int Number { get; private set; }
+    public int TileValue { get; private set; }
 
     private Image _background;
     private TextMeshProUGUI _text;
@@ -29,8 +29,8 @@ public class Tile : MonoBehaviour
 
     public void SetTileValue(int tileNumber)
     {
-        this.Number = tileNumber;
-        this._text.SetText(Number.ToString());
+        this.TileValue = tileNumber;
+        this._text.SetText(TileValue.ToString());
     }
 
     private void Awake()
