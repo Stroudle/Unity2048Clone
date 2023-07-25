@@ -143,6 +143,5 @@ public class Board : MonoBehaviour
         _tiles.Remove(a);
         a.Merge(b.Cell);
         b.SetTileValue(a.TileValue + b.TileValue);
-        GameObject.Destroy(a.gameObject);
     }
 }
