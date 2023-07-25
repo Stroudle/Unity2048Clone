@@ -96,6 +96,11 @@ public class Board : MonoBehaviour
             }
         }
 
+        foreach (var tile in _tiles)
+        {
+            tile.CanMerge = true;
+        }
+
         if(_tiles.Count != _grid.Size)
         {
             SpawnTile();
@@ -111,6 +116,10 @@ public class Board : MonoBehaviour
         {
             if(adjacent.Occupied)
             {
+                if(CanMerge(tile, adjacent.Tile))
+                {
+                    Merge(tile, adjacent.Tile);
+                }
                 break;
             }
 
@@ -122,5 +131,18 @@ public class Board : MonoBehaviour
         {
             tile.MoveTo(destination);
         }
+    }
+
+    private bool CanMerge(Tile a, Tile b)
+    {
+        return a.TileValue == b.TileValue && b.CanMerge;
+    }
+
+    private void Merge(Tile a, Tile b)
+    {
+        _tiles.Remove(a);
+        a.Merge(b.Cell);
+        b.SetTileValue(a.TileValue + b.TileValue);
+        GameObject.Destroy(a.gameObject);
     }
 }
