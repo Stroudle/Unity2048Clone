@@ -85,6 +85,7 @@ public class Board : MonoBehaviour
         int yStart = direction.y == 1 ? 0 : (direction.y == -1 ? (_grid.Height - 1) : 0);
         int yIncrement = direction.y == 1 ? 1 : (direction.y == -1 ? -1 : 1);
 
+        bool boardChanged = false;
         for(int x = xStart; x >= 0 && x < _grid.Width; x += xIncrement)
         {
             for(int y = yStart; y >= 0 && y < _grid.Height; y += yIncrement)
@@ -93,12 +94,20 @@ public class Board : MonoBehaviour
 
                 if(cell.Occupied)
                 {
-                    MoveTile(cell.Tile, direction);
+                    boardChanged |= MoveTile(cell.Tile, direction);
                 }
             }
         }
 
-        foreach (var tile in _tiles)
+        if(boardChanged)
+        {
+            ProcessBoardChanged();
+        }
+    }
+
+    private void ProcessBoardChanged()
+    {
+        foreach(var tile in _tiles)
         {
             tile.CanMerge = true;
         }
@@ -109,7 +118,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void MoveTile(Tile tile, Vector2Int direction)
+    private bool MoveTile(Tile tile, Vector2Int direction)
     {
         Cell destination = null;
         Cell adjacent = _grid.GetAdjacentCell(tile.Cell, direction);
@@ -121,7 +130,7 @@ public class Board : MonoBehaviour
                 if(CanMerge(tile, adjacent.Tile))
                 {
                     Merge(tile, adjacent.Tile);
-                    return;
+                    return true;
                 }
                 break;
             }
@@ -133,7 +142,9 @@ public class Board : MonoBehaviour
         if(destination != null)
         {
             tile.MoveTo(destination);
+            return true;
         }
+        return false;
     }
 
     private bool CanMerge(Tile a, Tile b)
