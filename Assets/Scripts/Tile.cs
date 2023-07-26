@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
 
     private Image _background;
     private TextMeshProUGUI _text;
+    private Tween _moveTween;
 
     private const float _tweenDuration = .1f;
     private const float _scaleMultipier = 1.1f;
@@ -24,7 +25,7 @@ public class Tile : MonoBehaviour
         }
 
         cell.Tile = this;
-        transform.DOMove(cell.transform.position, _tweenDuration);
+        _moveTween = transform.DOMove(cell.transform.position, _tweenDuration);
         this.Cell = cell;
     }
 
@@ -55,6 +56,7 @@ public class Tile : MonoBehaviour
             this.Cell.Tile = null;
         }
 
+        transform.SetAsFirstSibling();
         transform.DOMove(cell.transform.position, _tweenDuration).OnComplete(() => {
             Destroy(gameObject);
         });

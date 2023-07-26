@@ -5,6 +5,8 @@ public class Board : MonoBehaviour
 {
     [SerializeField]
     private Tile _tilePrefab;
+    [SerializeField]
+    private GameObject _tilesParent;
 
     private Grid2048 _grid;
     private List<Tile> _tiles;
@@ -49,7 +51,7 @@ public class Board : MonoBehaviour
 
     private void SpawnTile()
     {
-        Tile tile = Instantiate(_tilePrefab, _grid.transform);
+        Tile tile = Instantiate(_tilePrefab, _tilesParent.transform);
         tile.SetTileValue(GetRandomTileValue());
         tile.Spawn(_grid.GetRandomEmptyCell());
         _tiles.Add(tile);
@@ -119,6 +121,7 @@ public class Board : MonoBehaviour
                 if(CanMerge(tile, adjacent.Tile))
                 {
                     Merge(tile, adjacent.Tile);
+                    return;
                 }
                 break;
             }
