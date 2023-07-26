@@ -2,18 +2,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Tile : MonoBehaviour
 {
     public Cell Cell { get; private set; }
     public int TileValue { get; private set; }
     public bool CanMerge { get; set; }
+    public static float MovementDuration { get => _movementDuration; }
 
     private Image _background;
     private TextMeshProUGUI _text;
     private Tween _moveTween;
 
-    private const float _tweenDuration = .1f;
+    private const float _movementDuration = .1f;
     private const float _scaleMultipier = 1.1f;
 
     public void MoveTo(Cell cell)
@@ -25,7 +27,7 @@ public class Tile : MonoBehaviour
         }
 
         cell.Tile = this;
-        _moveTween = transform.DOMove(cell.transform.position, _tweenDuration);
+        _moveTween = transform.DOMove(cell.transform.position, _movementDuration);
         this.Cell = cell;
     }
 
@@ -46,7 +48,7 @@ public class Tile : MonoBehaviour
     {
         this.TileValue = tileNumber;
         this._text.SetText(TileValue.ToString());
-        transform.DOScale(transform.localScale * _scaleMultipier, _tweenDuration).SetLoops(2, LoopType.Yoyo);
+        transform.DOScale(transform.localScale * _scaleMultipier, _movementDuration).SetLoops(2, LoopType.Yoyo);
     }
 
     public void Merge(Cell cell)
@@ -57,7 +59,7 @@ public class Tile : MonoBehaviour
         }
 
         transform.SetAsFirstSibling();
-        transform.DOMove(cell.transform.position, _tweenDuration).OnComplete(() => {
+        transform.DOMove(cell.transform.position, _movementDuration).OnComplete(() => {
             Destroy(gameObject);
         });
 

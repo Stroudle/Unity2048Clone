@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Board : MonoBehaviour
     private Grid2048 _grid;
     private List<Tile> _tiles;
     private System.Random _random = new System.Random();
+    private bool _lockInput;
 
     private const int InitialTileCount = 2;
     private readonly (int TileValue, double Percentage) [] PossibleTileValues = {
@@ -74,7 +76,7 @@ public class Board : MonoBehaviour
 
     private void OnInputRecievedHandler(Vector2Int input)
     {
-        MoveTiles(input);
+        if(!_lockInput) MoveTiles(input);      
     }
 
     private void MoveTiles(Vector2Int direction)
@@ -101,11 +103,22 @@ public class Board : MonoBehaviour
 
         if(boardChanged)
         {
-            ProcessBoardChanged();
+            StartCoroutine(WaitForChanges());
         }
     }
 
-    private void ProcessBoardChanged()
+    private IEnumerator WaitForChanges()
+    {
+        _lockInput = true;
+
+        yield return new WaitForSeconds(Tile.MovementDuration);
+
+        _lockInput= false;
+
+        FinalizeRound();
+    }
+
+    private void FinalizeRound()
     {
         foreach(var tile in _tiles)
         {
