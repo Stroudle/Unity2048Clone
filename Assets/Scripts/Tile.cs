@@ -13,7 +13,6 @@ public class Tile : MonoBehaviour
 
     private UnityEngine.UI.Image _background;
     private TextMeshProUGUI _text;
-    private Tween _moveTween;
     private TileColorManager _colorManager = TileColorManager.Instance;
 
     private const float _movementDuration = .1f;
@@ -21,33 +20,26 @@ public class Tile : MonoBehaviour
 
     public void MoveTo(Cell cell)
     {
-
-        if(this.Cell != null)
-        {
-            this.Cell.Tile = null;
-        }
+        if(Cell != null) Cell.Tile = null;
 
         cell.Tile = this;
-        _moveTween = transform.DOMove(cell.transform.position, _movementDuration);
-        this.Cell = cell;
+        transform.DOMove(cell.transform.position, _movementDuration);
+        Cell = cell;
     }
 
     public void Spawn(Cell cell)
     {
-        if(this.Cell != null)
-        {
-            this.Cell.Tile = null;
-        }
-
+        if(Cell != null) Cell.Tile = null;
+     
         cell.Tile = this;
         transform.position = cell.transform.position;
-        this.Cell = cell;
+        Cell = cell;
         CanMerge = true;
     }
 
-    public void SetTileValue(int tileNumber)
+    public void SetTileValue(int value)
     {
-        TileValue = tileNumber;
+        TileValue = value;
         _text.SetText(TileValue.ToString());
         _text.color = _colorManager.GetTextColor(TileValue);
         _background.color = _colorManager.GetBackgroundColor(TileValue);
@@ -57,10 +49,7 @@ public class Tile : MonoBehaviour
 
     public void Merge(Cell cell)
     {
-        if(this.Cell != null)
-        {
-            this.Cell.Tile = null;
-        }
+        if(Cell != null) Cell.Tile = null;
 
         transform.SetAsFirstSibling();
         transform.DOMove(cell.transform.position, _movementDuration).OnComplete(() => {
