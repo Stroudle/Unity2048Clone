@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEngine.UIElements;
 
 public class Tile : MonoBehaviour
 {
@@ -11,9 +11,10 @@ public class Tile : MonoBehaviour
     public bool CanMerge { get; set; }
     public static float MovementDuration { get => _movementDuration; }
 
-    private Image _background;
+    private UnityEngine.UI.Image _background;
     private TextMeshProUGUI _text;
     private Tween _moveTween;
+    private TileColorManager _colorManager = TileColorManager.Instance;
 
     private const float _movementDuration = .1f;
     private const float _scaleMultipier = 1.1f;
@@ -46,8 +47,11 @@ public class Tile : MonoBehaviour
 
     public void SetTileValue(int tileNumber)
     {
-        this.TileValue = tileNumber;
-        this._text.SetText(TileValue.ToString());
+        TileValue = tileNumber;
+        _text.SetText(TileValue.ToString());
+        _text.color = _colorManager.GetTextColor(TileValue);
+        _background.color = _colorManager.GetBackgroundColor(TileValue);
+
         transform.DOScale(transform.localScale * _scaleMultipier, _movementDuration).SetLoops(2, LoopType.Yoyo);
     }
 
@@ -69,7 +73,7 @@ public class Tile : MonoBehaviour
 
     private void Awake()
     {
-        _background= GetComponent<Image>();
+        _background= GetComponent<UnityEngine.UI.Image>();
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 }
