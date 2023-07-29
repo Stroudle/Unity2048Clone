@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
         Cell = cell;
     }
 
-    public void Spawn(Cell cell, int colorIndex)
+    public void Spawn(Cell cell, int value)
     {
         if(Cell != null) Cell.Tile = null;
      
@@ -35,21 +35,26 @@ public class Tile : MonoBehaviour
         Cell = cell;
         CanMerge = true;
 
-        _colorScheme = TileColorManager.Instance.GetColor(colorIndex);
+        TileValue = value;
+        _colorScheme = TileColorManager.Instance.GetColor(value);
+        UpdateTileVisual();
     }
 
     public void SetTileValue(int value)
     {
         TileValue = value;
-        _text.SetText(TileValue.ToString());
-
         _colorScheme = TileColorManager.Instance.GetNextColor(_colorScheme);
-        _background.color = _colorScheme.backgroundColor;
-        _text.color = _colorScheme.textColor;
+        UpdateTileVisual();
 
         transform.DOScale(transform.localScale * _scaleMultipier, _movementDuration).SetLoops(2, LoopType.Yoyo);
     }
 
+    private void UpdateTileVisual()
+    {
+        _text.SetText(TileValue.ToString());
+        _background.color = _colorScheme.backgroundColor;
+        _text.color = _colorScheme.textColor;
+    }
 
     public void Merge(Cell cell)
     {

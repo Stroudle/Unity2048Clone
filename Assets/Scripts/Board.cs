@@ -54,8 +54,7 @@ public class Board : MonoBehaviour
     private void SpawnTile()
     {
         Tile tile = Instantiate(_tilePrefab, _tilesParent.transform);
-        tile.SetTileValue(_rng.GetRandomValue());
-        tile.Spawn(_grid.GetRandomEmptyCell(), 0);
+        tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomValue());
         _tiles.Add(tile);
     }
 
