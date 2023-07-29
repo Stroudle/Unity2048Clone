@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class Board : MonoBehaviour
     {
         Tile tile = Instantiate(_tilePrefab, _tilesParent.transform);
         tile.SetTileValue(GetRandomTileValue());
-        tile.Spawn(_grid.GetRandomEmptyCell());
+        tile.Spawn(_grid.GetRandomEmptyCell(), 0);
         _tiles.Add(tile);
     }
 

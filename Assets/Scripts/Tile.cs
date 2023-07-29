@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.UIElements;
 
 public class Tile : MonoBehaviour
 {
@@ -11,9 +10,9 @@ public class Tile : MonoBehaviour
     public bool CanMerge { get; set; }
     public static float MovementDuration { get => _movementDuration; }
 
-    private UnityEngine.UI.Image _background;
+    private Image _background;
     private TextMeshProUGUI _text;
-    private TileColorManager _colorManager = TileColorManager.Instance;
+    private TileColorData _colorScheme;
 
     private const float _movementDuration = .1f;
     private const float _scaleMultipier = 1.1f;
@@ -27,7 +26,7 @@ public class Tile : MonoBehaviour
         Cell = cell;
     }
 
-    public void Spawn(Cell cell)
+    public void Spawn(Cell cell, int colorIndex)
     {
         if(Cell != null) Cell.Tile = null;
      
@@ -35,17 +34,22 @@ public class Tile : MonoBehaviour
         transform.position = cell.transform.position;
         Cell = cell;
         CanMerge = true;
+
+        _colorScheme = TileColorManager.Instance.GetColor(colorIndex);
     }
 
     public void SetTileValue(int value)
     {
         TileValue = value;
         _text.SetText(TileValue.ToString());
-        _text.color = _colorManager.GetTextColor(TileValue);
-        _background.color = _colorManager.GetBackgroundColor(TileValue);
+
+        _colorScheme = TileColorManager.Instance.GetNextColor(_colorScheme);
+        _background.color = _colorScheme.backgroundColor;
+        _text.color = _colorScheme.textColor;
 
         transform.DOScale(transform.localScale * _scaleMultipier, _movementDuration).SetLoops(2, LoopType.Yoyo);
     }
+
 
     public void Merge(Cell cell)
     {
@@ -62,7 +66,7 @@ public class Tile : MonoBehaviour
 
     private void Awake()
     {
-        _background= GetComponent<UnityEngine.UI.Image>();
+        _background= GetComponent<Image>();
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 }

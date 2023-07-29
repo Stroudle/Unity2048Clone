@@ -1,29 +1,26 @@
+using System;
 using UnityEngine;
 
 public class TileColorManager : MonoBehaviour
 {
     public static TileColorManager Instance { get; private set; }
 
-    private TileColorData[] _tileColorsData;
+    private TileColorData[] _tileColors;
 
-    public Color GetBackgroundColor(int value)
+    public TileColorData GetColor(int index)
     {
-        return _tileColorsData[GetIndex(value)].backgroundColor;
+        return _tileColors[index];
     }
 
-    public Color GetTextColor(int value)
+    public TileColorData GetNextColor(TileColorData tileColor)
     {
-        return _tileColorsData[GetIndex(value)].textColor;
+        int index = Mathf.Clamp(GetIndexOf(tileColor) + 1, 0, _tileColors.Length - 1);
+        return _tileColors[index];
     }
 
-    private int GetIndex(int value)
+    private int GetIndexOf(TileColorData element)
     {
-        int index = (int)Mathf.Log(value, 2) - 1;
-        if(index >= _tileColorsData.Length)
-        {
-            return _tileColorsData.Length;
-        }
-        return index;
+        return Array.IndexOf(_tileColors, element);
     }
 
     private void Awake()
@@ -42,6 +39,6 @@ public class TileColorManager : MonoBehaviour
 
     private void LoadData()
     {
-        _tileColorsData = Resources.LoadAll<TileColorData>("TileColorData");
+        _tileColors = Resources.LoadAll<TileColorData>("TileColorData");
     }
 }
