@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +11,10 @@ public class Board : MonoBehaviour
 
     private Grid2048 _grid;
     private List<Tile> _tiles;
-    private System.Random _random = new System.Random();
+    private TileValueGenerator _rng;
     private bool _lockInput;
 
     private const int InitialTileCount = 2;
-    private readonly (int TileValue, double Percentage) [] PossibleTileValues = {
-        (2, 90.0),
-        (4, 10.0),
-    };
 
     private void Awake()
     {
@@ -29,6 +24,10 @@ public class Board : MonoBehaviour
 
     private void Start() 
     {
+        _rng = new TileValueGenerator();
+        _rng.AddValueWithPercentage(2, 95.0f);
+        _rng.AddValueWithPercentage(4, 5.0f);
+
         SpawnTiles();
     }
 
@@ -55,24 +54,9 @@ public class Board : MonoBehaviour
     private void SpawnTile()
     {
         Tile tile = Instantiate(_tilePrefab, _tilesParent.transform);
-        tile.SetTileValue(GetRandomTileValue());
+        tile.SetTileValue(_rng.GetRandomValue());
         tile.Spawn(_grid.GetRandomEmptyCell(), 0);
         _tiles.Add(tile);
-    }
-
-    private int GetRandomTileValue()
-    {
-        double randomNumber = _random.NextDouble() * 100;
-        double cumulativePercentage = 0;
-        foreach(var (tileValue, percentage) in PossibleTileValues)
-        {
-            cumulativePercentage += percentage;
-            if(randomNumber < cumulativePercentage)
-            {
-                return tileValue;
-            }
-        }
-        return PossibleTileValues[0].TileValue;
     }
 
     private void OnInputRecievedHandler(Vector2Int input)
