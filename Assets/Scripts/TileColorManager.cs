@@ -5,6 +5,7 @@ public class TileColorManager : MonoBehaviour
 {
     public static TileColorManager Instance { get; private set; }
 
+    [SerializeField]
     private TileColorData[] _tileColors;
 
     public TileColorData GetColor(int index)
@@ -33,12 +34,5 @@ public class TileColorManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        LoadData();
-    }
-
-    private void LoadData()
-    {
-        _tileColors = Resources.LoadAll<TileColorData>("TileColorData");
     }
 }

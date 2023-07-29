@@ -1483,6 +1483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e634192dbd04f4faebadd924e9a308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tileColors:
+  - {fileID: 11400000, guid: 1809d0a548d45a34abd206d3c3c66256, type: 2}
+  - {fileID: 11400000, guid: 568a1c0963c211643a5bd27a6c5308ed, type: 2}
+  - {fileID: 11400000, guid: 9ce2eeefaedcdfe42897632907f95f3b, type: 2}
+  - {fileID: 11400000, guid: 8bf2e654ad1defe49ab3bde878950eb3, type: 2}
 --- !u!4 &914837492
 Transform:
   m_ObjectHideFlags: 0
