@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Board _board;
 
+    [SerializeField]
+    private UIController _uiController;
+
     private const int TileCount = 2;
 
     private void Start()
@@ -16,8 +19,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
-        NewGame();
+        _uiController.GameOverUI();
     }
 
     public void NewGame()
