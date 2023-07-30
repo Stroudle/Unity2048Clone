@@ -8,27 +8,22 @@ public class Board : MonoBehaviour
     private Tile _tilePrefab;
     [SerializeField]
     private GameObject _tilesParent;
+    [SerializeField]
+    private GameManager _gameManager;
 
     private Grid2048 _grid;
     private List<Tile> _tiles;
     private TileValueGenerator _rng;
     private bool _lockInput;
 
-    private const int InitialTileCount = 2;
-
     private void Awake()
     {
         _grid = GetComponentInChildren<Grid2048>();
         _tiles = new List<Tile>(16);
-    }
 
-    private void Start() 
-    {
         _rng = new TileValueGenerator();
         _rng.AddValueWithPercentage(2, 95.0f);
         _rng.AddValueWithPercentage(4, 5.0f);
-
-        SpawnTiles();
     }
 
     private void OnEnable()
@@ -43,15 +38,22 @@ public class Board : MonoBehaviour
         SwipeDetection.OnSwipeInput += OnInputRecievedHandler;
     }
 
-    private void SpawnTiles()
+    public void ClearBoard()
     {
-        for(int i = 0; i < InitialTileCount; i++)
+        foreach (var cell in _grid.Cells) 
         {
-            SpawnTile();
+            if(cell.Tile != null)
+            {
+                Destroy(cell.Tile.gameObject);
+            }
+
+            cell.Tile = null;
         }
+
+        _tiles.Clear();
     }
 
-    private void SpawnTile()
+    public void SpawnTile()
     {
         Tile tile = Instantiate(_tilePrefab, _tilesParent.transform);
         tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomValue());
@@ -113,6 +115,46 @@ public class Board : MonoBehaviour
         {
             SpawnTile();
         }
+
+        if(CheckForGameOver())
+        {
+            _gameManager.GameOver();
+        }
+    }
+
+    private bool CheckForGameOver()
+    {
+        if(_tiles.Count != _grid.Size)
+        {
+            return false;
+        }
+
+        foreach(var tile in _tiles)
+        {
+            Cell up = _grid.GetAdjacentCell(tile.Cell, Vector2Int.up);
+            Cell down = _grid.GetAdjacentCell(tile.Cell, Vector2Int.down);
+            Cell left = _grid.GetAdjacentCell(tile.Cell, Vector2Int.left);
+            Cell right = _grid.GetAdjacentCell(tile.Cell, Vector2Int.right);
+
+            if(up != null && CanMerge(tile, up.Tile))
+            {
+                return false;
+            }
+            if(down != null && CanMerge(tile, down.Tile))
+            {
+                return false;
+            }
+            if(left != null && CanMerge(tile, left.Tile))
+            {
+                return false;
+            }
+            if(right != null && CanMerge(tile, right.Tile))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private bool MoveTile(Tile tile, Vector2Int direction)
