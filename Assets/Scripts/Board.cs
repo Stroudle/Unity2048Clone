@@ -195,6 +195,10 @@ public class Board : MonoBehaviour
     {
         _tiles.Remove(a);
         a.Merge(b.Cell);
-        b.SetTileValue(a.TileValue + b.TileValue);
+
+        int value = b.TileValue * 2;
+        b.SetTileValue(value);
+
+        _gameManager.IncreaseScore(value);
     }
 }

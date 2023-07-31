@@ -6,11 +6,38 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private Board _board;
-
     [SerializeField]
     private UIController _uiController;
 
+    private int Score
+    {
+        get => _score;
+        set
+        {
+            _score = value;
+            _uiController.SetScore(value);
+        }
+    }
+
+    private int HighScore
+    {
+        get => _highScore;
+        set
+        {
+            _highScore = value;
+            _uiController.SetHighScore(value);
+        }
+    }
+
+    private int _score;
+    private int _highScore;
+
     private const int TileCount = 2;
+
+    private void Awake()
+    {
+        HighScore = LoadHighScore();
+    }
 
     private void Start()
     {
@@ -24,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
+        Score = 0;
         _board.ClearBoard();
         SpawnTiles();
     }
@@ -34,5 +62,24 @@ public class GameManager : MonoBehaviour
         {
             _board.SpawnTile();
         }
+    }
+
+    public void IncreaseScore(int points)
+    {
+        Score += points;
+        if(Score > HighScore)
+        {
+            SaveHighScore();
+        }
+    }
+    private void SaveHighScore()
+    {        
+        HighScore = Score;
+        PlayerPrefs.SetInt("highscore", HighScore);
+    }
+
+    private int LoadHighScore()
+    {
+        return PlayerPrefs.GetInt("highscore", 0);
     }
 }
