@@ -6,13 +6,22 @@
             "id": "e3359e51-cbdb-4eb3-8347-e1fc2731e0cd",
             "actions": [
                 {
-                    "name": "KeyboardInput",
-                    "type": "Value",
-                    "id": "e0ced228-5488-4ac4-a74a-91ca18b0d763",
-                    "expectedControlType": "Vector2",
+                    "name": "KeyboardHorizontal",
+                    "type": "Button",
+                    "id": "184eb77e-25e0-4fd9-a19f-de175b448332",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "KeyboardVertical",
+                    "type": "Button",
+                    "id": "d24a7489-5c44-4146-bfbe-77770bb5056f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TouchContact",
@@ -35,116 +44,6 @@
             ],
             "bindings": [
                 {
-                    "name": "ArrowKeys",
-                    "id": "89edcc16-2851-4f97-81a2-9622828dddd5",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "KeyboardInput",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "bdebdb18-232e-471d-8351-738fde8118fd",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "6acaed8f-fccc-4d33-adbb-9db92472bbf8",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "b12d7bb5-09d4-418b-81bc-6a37816f55a3",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "996df42b-62f9-4cda-acfe-3058efccc587",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "WASD",
-                    "id": "9b558ff4-0c69-45c8-a8fd-56c5503fcf12",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "KeyboardInput",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "63756881-783f-418c-be9c-65b9faa18633",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "0bc1bdd2-43a4-4cc7-975f-3ffffa4b2227",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "7bcfaa39-1f0e-4be0-9fa5-b6fda96918dc",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "e91d53eb-dccb-44bd-8ca7-4d32ca4be211",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "KeyboardInput",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "a2f9c590-ead0-4199-b326-5e2598568ae6",
                     "path": "<Touchscreen>/primaryTouch/press",
@@ -165,6 +64,138 @@
                     "action": "TouchPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Arrows",
+                    "id": "a3b95a21-25df-4ebd-a500-dbd56a8de9e6",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyboardHorizontal",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "23ea972a-0cf2-497a-9f10-5b1e89e5d214",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "3c4142e1-2cf1-4956-9f4d-858b8d2071a4",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "WASD",
+                    "id": "0badb275-8f1e-4827-8d28-b9094da8c33a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyboardHorizontal",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "7e75e3f5-432f-4ce5-8017-ef16376619e7",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "23942127-21ed-4abc-a3a3-b28b9c40da6e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Arrows",
+                    "id": "af43f3e2-0335-4521-9eca-5ab87f5957af",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyboardVertical",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "10367fff-eaf6-486a-9307-73fc35ce4aa2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "b012ccfe-4de9-46cb-b17c-f42da67c39b9",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "WASD",
+                    "id": "4ed478a2-b704-4a3e-9718-f4bf912d1edd",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyboardVertical",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "9daaf1d5-709a-4946-ba51-ce807cc9b6ae",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "58982256-c125-4c58-a529-d3d771c9c68e",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "KeyboardVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

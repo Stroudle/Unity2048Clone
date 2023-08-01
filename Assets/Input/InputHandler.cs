@@ -11,7 +11,8 @@ public class InputHandler : MonoBehaviour
     public event TouchInput OnCancelTouch;
 
     private PlayerInput _playerInput;
-    private InputAction _keyboardInput;
+    private InputAction _keyboardHorizontal;
+    private InputAction _keyboardVertical;
     private InputAction _touchContact;
     private InputAction _touchPosition;
     private Camera _mainCamera;
@@ -19,7 +20,8 @@ public class InputHandler : MonoBehaviour
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _keyboardInput = _playerInput.actions["KeyboardInput"];
+        _keyboardHorizontal = _playerInput.actions["KeyboardHorizontal"];
+        _keyboardVertical = _playerInput.actions["KeyboardVertical"];
         _touchContact = _playerInput.actions["TouchContact"];
         _touchPosition = _playerInput.actions["TouchPosition"];
         _mainCamera = Camera.main;
@@ -27,14 +29,16 @@ public class InputHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        _keyboardInput.performed += OnKeyboardInputPerformed;
+        _keyboardHorizontal.performed += OnKeyboardInputHorizontal;
+        _keyboardVertical.performed += OnKeyboardInputVertical;
         _touchContact.started += OnStartTouchPrimary;
         _touchContact.canceled += OnCancelTouchPrimary;
     }
 
     private void OnDisable() 
     {
-        _keyboardInput.performed -= OnKeyboardInputPerformed;
+        _keyboardHorizontal.performed -= OnKeyboardInputHorizontal;
+        _keyboardVertical.performed -= OnKeyboardInputVertical;
         _touchContact.started -= OnStartTouchPrimary;
         _touchContact.canceled -= OnCancelTouchPrimary;
     }
@@ -49,9 +53,15 @@ public class InputHandler : MonoBehaviour
         OnCancelTouch?.Invoke(Utils.ScreenToWorld(_mainCamera, _touchPosition.ReadValue<Vector2>()), (float)context.time);
     }
 
-    private void OnKeyboardInputPerformed(InputAction.CallbackContext context)
+    private void OnKeyboardInputHorizontal(InputAction.CallbackContext context)
     {
-        Vector2Int input = Vector2Int.CeilToInt(context.ReadValue<Vector2>());
-        OnKeyboardInput?.Invoke(input.x != 0 ? new Vector2Int(input.x, 0) : new Vector2Int(0, input.y));
+        Vector2Int input = new((int)context.ReadValue<float>(), 0);
+        OnKeyboardInput?.Invoke(input);
+    }
+
+    private void OnKeyboardInputVertical(InputAction.CallbackContext context)
+    {
+        Vector2Int input = new(0, (int)context.ReadValue<float>());
+        OnKeyboardInput?.Invoke(input);
     }
 }
