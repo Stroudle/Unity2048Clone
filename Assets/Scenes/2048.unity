@@ -870,8 +870,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b18d74a5be9e54bbf35d1c675b1c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 2014705628}
-  _highScoreText: {fileID: 1483206430}
+  _scoreText: {fileID: 1483206430}
+  _highScoreText: {fileID: 2014705628}
 --- !u!1001 &424169448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2599,7 +2599,7 @@ GameObject:
   - component: {fileID: 1483206431}
   - component: {fileID: 1483206430}
   m_Layer: 0
-  m_Name: Value
+  m_Name: Score Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3584,7 +3584,7 @@ GameObject:
   - component: {fileID: 2014705629}
   - component: {fileID: 2014705628}
   m_Layer: 0
-  m_Name: Value
+  m_Name: High Score Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
