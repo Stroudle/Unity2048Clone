@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SwipeDetection : MonoBehaviour
+public class MobileInput : MonoBehaviour
 {
-    public delegate void SwipeInput(Vector2Int input);
-    public static event SwipeInput OnSwipeInput;
+    public delegate void MobileInputEvent(Vector2Int input);
+    public static event MobileInputEvent OnMobileInput;
 
     [SerializeField]
     private float _minimumDistance = .2f;
@@ -80,19 +80,19 @@ public class SwipeDetection : MonoBehaviour
     {
         if(Vector2.Dot(Vector2.up, direction) > _directionThreshold)
         {
-            OnSwipeInput?.Invoke(Vector2Int.up);
+            OnMobileInput?.Invoke(Vector2Int.up);
         }
         else if(Vector2.Dot(Vector2.down, direction) > _directionThreshold)
         {
-            OnSwipeInput?.Invoke(Vector2Int.down);
+            OnMobileInput?.Invoke(Vector2Int.down);
         }
         else if(Vector2.Dot(Vector2.left, direction) > _directionThreshold)
         {
-            OnSwipeInput?.Invoke(Vector2Int.left);
+            OnMobileInput?.Invoke(Vector2Int.left);
         }
         else if(Vector2.Dot(Vector2.right, direction) > _directionThreshold)
         {
-            OnSwipeInput?.Invoke(Vector2Int.right);
+            OnMobileInput?.Invoke(Vector2Int.right);
         }
     }
 }

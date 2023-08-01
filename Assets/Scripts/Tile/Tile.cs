@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
 
     private Image _background;
     private TextMeshProUGUI _text;
-    private TileColorData _colorScheme;
+    private ColorScheme _colorScheme;
 
     private const float _movementDuration = .1f;
     private const float _scaleMultipier = 1.1f;
@@ -36,14 +36,14 @@ public class Tile : MonoBehaviour
         CanMerge = true;
 
         TileValue = value;
-        _colorScheme = TileColorManager.Instance.GetColor(value);
+        _colorScheme = ColorManager.Instance.GetColor(value);
         UpdateTileVisual();
     }
 
     public void SetTileValue(int value)
     {
         TileValue = value;
-        _colorScheme = TileColorManager.Instance.GetNextColor(_colorScheme);
+        _colorScheme = ColorManager.Instance.GetNextColor(_colorScheme);
         UpdateTileVisual();
 
         transform.DOScale(transform.localScale * _scaleMultipier, _movementDuration).SetLoops(2, LoopType.Yoyo);

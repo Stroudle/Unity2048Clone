@@ -1,9 +1,9 @@
 using System.Linq;
 using UnityEngine;
 
-public class Grid2048 : MonoBehaviour
+public class CellGrid : MonoBehaviour
 {
-    public Row[] Rows { get; private set; }
+    public CellRow[] Rows { get; private set; }
     public Cell[] Cells { get; private set; }
 
     public int Size => Cells.Length;
@@ -44,7 +44,7 @@ public class Grid2048 : MonoBehaviour
 
     private void Awake()
     {
-        Rows = GetComponentsInChildren<Row>();
+        Rows = GetComponentsInChildren<CellRow>();
         Cells = GetComponentsInChildren<Cell>();
     }
 

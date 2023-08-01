@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Row : MonoBehaviour
+public class CellRow : MonoBehaviour
 {
     public Cell[] Cells { get; private set; }
 

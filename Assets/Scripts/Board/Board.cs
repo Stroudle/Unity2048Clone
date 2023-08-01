@@ -11,31 +11,31 @@ public class Board : MonoBehaviour
     [SerializeField]
     private GameManager _gameManager;
 
-    private Grid2048 _grid;
+    private CellGrid _grid;
     private List<Tile> _tiles;
-    private TileValueGenerator _rng;
+    private WeightedRandomGenerator _rng;
     private bool _lockInput;
 
     private void Awake()
     {
-        _grid = GetComponentInChildren<Grid2048>();
+        _grid = GetComponentInChildren<CellGrid>();
         _tiles = new List<Tile>(16);
 
-        _rng = new TileValueGenerator();
-        _rng.AddValueWithPercentage(2, 95.0f);
-        _rng.AddValueWithPercentage(4, 5.0f);
+        _rng = new WeightedRandomGenerator();
+        _rng.AddNumberWithWeight(2, 95.0f);
+        _rng.AddNumberWithWeight(4, 5.0f);
     }
 
     private void OnEnable()
     {
-        InputHandler.OnKeyboardInput += OnInputRecievedHandler;
-        SwipeDetection.OnSwipeInput += OnInputRecievedHandler;
+        KeyboardInput.OnKeyboardInput += OnInputRecievedHandler;
+        MobileInput.OnMobileInput += OnInputRecievedHandler;
     }
 
     private void OnDisable() 
     {
-        InputHandler.OnKeyboardInput -= OnInputRecievedHandler;
-        SwipeDetection.OnSwipeInput += OnInputRecievedHandler;
+        KeyboardInput.OnKeyboardInput -= OnInputRecievedHandler;
+        MobileInput.OnMobileInput += OnInputRecievedHandler;
     }
 
     public void ClearBoard()
@@ -56,7 +56,7 @@ public class Board : MonoBehaviour
     public void SpawnTile()
     {
         Tile tile = Instantiate(_tilePrefab, _tilesParent.transform);
-        tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomValue());
+        tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomNumber());
         _tiles.Add(tile);
     }
 

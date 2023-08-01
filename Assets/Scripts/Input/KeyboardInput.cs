@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler : MonoBehaviour
+public class KeyboardInput : MonoBehaviour
 {
-    public delegate void KeyboardInput(Vector2Int input);
-    public static event KeyboardInput OnKeyboardInput;
+    public delegate void KeyboardInputEvent(Vector2Int input);
+    public static event KeyboardInputEvent OnKeyboardInput;
 
     private PlayerInput _playerInput;
     private InputAction _keyboardHorizontal;
