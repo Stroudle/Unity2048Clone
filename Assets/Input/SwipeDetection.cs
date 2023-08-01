@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SwipeDetection : MonoBehaviour
 {
@@ -12,7 +13,15 @@ public class SwipeDetection : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float _directionThreshold = .9f;
 
-    private InputHandler _inputHandler;
+    public delegate void TouchInput(Vector2 position, float duration);
+    public event TouchInput OnStartTouch;
+    public event TouchInput OnCancelTouch;
+
+    private PlayerInput _playerInput;
+    private Camera _mainCamera;
+
+    private InputAction _touchContact;
+    private InputAction _touchPosition;
 
     private Vector2 _startPosition;
     private float _startTime;
@@ -21,31 +30,35 @@ public class SwipeDetection : MonoBehaviour
 
     private void Awake()
     {
-        _inputHandler = GetComponent<InputHandler>();
+        _playerInput = GetComponent<PlayerInput>();
+
+        _touchContact = _playerInput.actions["TouchContact"];
+        _touchPosition = _playerInput.actions["TouchPosition"];
+        _mainCamera = Camera.main;
     }
 
     private void OnEnable()
     {
-        _inputHandler.OnStartTouch += SwipeStart;
-        _inputHandler.OnCancelTouch += SwipeCancel;
+        _touchContact.started += SwipeStart;
+        _touchContact.canceled += SwipeCancel;
     }
 
     private void OnDisable()
     {
-        _inputHandler.OnStartTouch -= SwipeStart;
-        _inputHandler.OnCancelTouch -= SwipeCancel;
+        _touchContact.started -= SwipeStart;
+        _touchContact.canceled -= SwipeCancel;
     }
 
-    private void SwipeStart(Vector2 position, float duration)
+    private void SwipeStart(InputAction.CallbackContext context)
     {
-        _startPosition = position;
-        _startTime = duration;
+        _startPosition = Utils.ScreenToWorld(_mainCamera, _touchPosition.ReadValue<Vector2>());
+        _startTime = (float)context.startTime;
     }
 
-    private void SwipeCancel(Vector2 position, float duration)
+    private void SwipeCancel(InputAction.CallbackContext context)
     {
-        _endPosition = position;
-        _endTime = duration;
+        _endPosition = Utils.ScreenToWorld(_mainCamera, _touchPosition.ReadValue<Vector2>());
+        _endTime = (float)context.time;
         DetectSwipe();
     }
 
