@@ -14,7 +14,6 @@ public class Board : MonoBehaviour
     private CellGrid _grid;
     private List<Tile> _tiles;
     private WeightedRandomGenerator _rng;
-    private bool _lockInput;
 
     private void Awake()
     {
@@ -62,7 +61,7 @@ public class Board : MonoBehaviour
 
     private void OnInputRecievedHandler(Vector2Int input)
     {
-        if(!_lockInput) MoveTiles(input);      
+        MoveTiles(input);
     }
 
     private void MoveTiles(Vector2Int direction)
@@ -95,12 +94,9 @@ public class Board : MonoBehaviour
 
     private IEnumerator WaitForChanges()
     {
-        _lockInput = true;
-
+        InputBlocker.BlockInputs();
         yield return new WaitForSeconds(Tile.MovementDuration);
-
-        _lockInput= false;
-
+        InputBlocker.UnblockInputs();
         FinalizeRound();
     }
 

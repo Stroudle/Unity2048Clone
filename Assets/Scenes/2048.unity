@@ -3950,6 +3950,7 @@ GameObject:
   - component: {fileID: 1898367747015825024}
   - component: {fileID: 1997008675}
   - component: {fileID: 3543417523196329246}
+  - component: {fileID: 3543417523196329247}
   m_Layer: 0
   m_Name: Player Input
   m_TagString: Untagged
@@ -3972,6 +3973,18 @@ MonoBehaviour:
   _minimumDistance: 0.2
   _maximumTime: 1
   _directionThreshold: 0.9
+--- !u!114 &3543417523196329247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543417523196329245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20a3db8219533e4a8db6dff71ced818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4074421929251980435
 MonoBehaviour:
   m_ObjectHideFlags: 0
