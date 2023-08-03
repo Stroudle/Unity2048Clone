@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    public delegate void GameOver();
+    public event GameOver OnGameOver;
+
+    public delegate void IncreaseScore(int value);
+    public event IncreaseScore OnIncreaseScore;
+
     [SerializeField]
     private Tile _tilePrefab;
     [SerializeField]
     private GameObject _tilesParent;
-    [SerializeField]
-    private GameManager _gameManager;
 
     private CellGrid _grid;
     private List<Tile> _tiles;
@@ -114,7 +118,7 @@ public class Board : MonoBehaviour
 
         if(CheckForGameOver())
         {
-            _gameManager.GameOver();
+            OnGameOver?.Invoke();
         }
     }
 
@@ -195,6 +199,6 @@ public class Board : MonoBehaviour
         int value = b.TileValue * 2;
         b.SetTileValue(value);
 
-        _gameManager.IncreaseScore(value);
+        OnIncreaseScore?.Invoke(value);
     }
 }

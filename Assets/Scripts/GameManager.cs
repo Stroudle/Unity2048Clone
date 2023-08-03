@@ -39,13 +39,25 @@ public class GameManager : MonoBehaviour
         HighScore = LoadHighScore();
     }
 
+    private void OnEnable()
+    {
+        _board.OnGameOver += GameOver;
+        _board.OnIncreaseScore += IncreaseScore;
+    }
+
+    private void OnDisable()
+    {
+        _board.OnGameOver += GameOver;
+        _board.OnIncreaseScore += IncreaseScore;
+    }
+
     private void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
         NewGame();
     }
 
-    public void GameOver()
+    private void GameOver()
     {
         _uiController.GameOverUI();
     }
@@ -65,7 +77,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void IncreaseScore(int points)
+    private void IncreaseScore(int points)
     {
         Score += points;
         if(Score > HighScore)
