@@ -38,6 +38,8 @@ public class Tile : MonoBehaviour
         TileValue = value;
         _colorScheme = ColorManager.Instance.GetColor(value);
         UpdateTileVisual();
+
+        transform.DOScale(1, _movementDuration);
     }
 
     public void SetTileValue(int value)
@@ -73,5 +75,6 @@ public class Tile : MonoBehaviour
     {
         _background= GetComponent<Image>();
         _text = GetComponentInChildren<TextMeshProUGUI>();
+        transform.localScale = new Vector2(0.1f, 0.1f);
     }
 }
