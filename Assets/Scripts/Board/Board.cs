@@ -109,7 +109,7 @@ public class Board : MonoBehaviour
     private IEnumerator WaitForChanges()
     {
         InputBlocker.BlockInputs();
-        yield return new WaitForSeconds(Tile.MovementDuration);
+        yield return new WaitForSeconds(Tile.TweeningDuration);
         InputBlocker.UnblockInputs();
         FinalizeRound();
     }
