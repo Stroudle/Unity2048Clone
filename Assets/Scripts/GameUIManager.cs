@@ -1,15 +1,14 @@
 using DG.Tweening;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
-public class UIController : MonoBehaviour
+public class GameUIManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _scoreText, _highScoreText;
 
     private CanvasGroup _gameOverUI;
-    private const float _fadeDuration = 0.75f;
+    private const float _fadeDuration = 0.5f;
 
     private void Awake()
     {
@@ -18,7 +17,7 @@ public class UIController : MonoBehaviour
         _gameOverUI.alpha = 0f;
     }
 
-    public void GameOverUI()
+    public void ShowGameOverUI()
     {
         _gameOverUI.DOFade(1.0f, _fadeDuration).OnComplete(() =>
         {
@@ -26,13 +25,13 @@ public class UIController : MonoBehaviour
         });
     }
 
-    public void SetScore(int score)
+    public void UpdateScoreUI(int value)
     {
-        _scoreText.SetText(score.ToString());
+        _scoreText.SetText(value.ToString());
     }
 
-    public void SetHighScore(int highScore)
+    public void UpdateHighScoreUI(int value)
     {
-        _highScoreText.SetText(highScore.ToString());
+        _highScoreText.SetText(value.ToString());
     }
 }

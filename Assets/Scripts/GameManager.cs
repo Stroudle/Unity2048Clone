@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Board _board;
-    public UIController _uiController;
+    public GameUIManager _uiController;
 
     private int _score;
     private int _highScore;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        _uiController.GameOverUI();
+        _uiController.ShowGameOverUI();
     }
 
     public void NewGame()
@@ -77,12 +77,12 @@ public class GameManager : MonoBehaviour
     private void SetScore(int value)
     {
         _score = value;
-        _uiController.SetScore(_score);
+        _uiController.UpdateScoreUI(_score);
     }
 
     private void SetHighScore(int value)
     {
         _highScore = value;
-        _uiController.SetHighScore(_highScore);
+        _uiController.UpdateHighScoreUI(_highScore);
     }
 }
