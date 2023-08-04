@@ -13,10 +13,6 @@ public class MobileInput : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float _directionThreshold = .9f;
 
-    public delegate void TouchInput(Vector2 position, float duration);
-    public event TouchInput OnStartTouch;
-    public event TouchInput OnCancelTouch;
-
     private PlayerInput _playerInput;
     private Camera _mainCamera;
 
