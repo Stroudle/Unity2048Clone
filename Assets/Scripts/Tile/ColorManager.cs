@@ -6,23 +6,18 @@ public class ColorManager : MonoBehaviour
     public static ColorManager Instance { get; private set; }
 
     [SerializeField]
-    private ColorScheme[] _tileColors;
+    private ColorScheme[] _colors;
 
     public ColorScheme GetColor(int value)
     {
         int index = (int) Mathf.Log(value, 2) - 1;
-        return _tileColors[Mathf.Clamp(index, 0, _tileColors.Length)];
+        return _colors[Mathf.Clamp(index, 0, _colors.Length)];
     }
 
-    public ColorScheme GetNextColor(ColorScheme tileColor)
+    public ColorScheme NextColor(ColorScheme current)
     {
-        int index = GetIndexOf(tileColor) + 1;
-        return (index >= _tileColors.Length) ? _tileColors[0] : _tileColors[index];
-    }
-
-    private int GetIndexOf(ColorScheme element)
-    {
-        return Array.IndexOf(_tileColors, element);
+        int index = Array.IndexOf(_colors, current) + 1;
+        return (index >= _colors.Length) ? _colors[0] : _colors[index];
     }
 
     private void Awake()

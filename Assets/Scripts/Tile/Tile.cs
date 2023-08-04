@@ -38,7 +38,7 @@ public class Tile : MonoBehaviour
     public void SetTileValue(int value)
     {
         TileValue = value;
-        _colorScheme = ColorManager.Instance.GetNextColor(_colorScheme);
+        _colorScheme = ColorManager.Instance.NextColor(_colorScheme);
         UpdateTileUI();
 
         transform.DOScale(transform.localScale * _scaleMultipier, TweeningDuration).SetLoops(2, LoopType.Yoyo);
