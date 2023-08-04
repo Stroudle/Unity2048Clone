@@ -1,33 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private Board _board;
-    [SerializeField]
-    private UIController _uiController;
-
-    private int Score
-    {
-        get => _score;
-        set
-        {
-            _score = value;
-            _uiController.SetScore(value);
-        }
-    }
-
-    private int HighScore
-    {
-        get => _highScore;
-        set
-        {
-            _highScore = value;
-            _uiController.SetHighScore(value);
-        }
-    }
+    public Board _board;
+    public UIController _uiController;
 
     private int _score;
     private int _highScore;
@@ -36,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        HighScore = LoadHighScore();
+        SetHighScore(LoadHighScore());
     }
 
     private void OnEnable()
@@ -47,8 +23,8 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _board.OnGameOver += GameOver;
-        _board.OnIncreaseScore += IncreaseScore;
+        _board.OnGameOver -= GameOver;
+        _board.OnIncreaseScore -= IncreaseScore;
     }
 
     private void Start()
@@ -64,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        Score = 0;
+        SetScore(0);
         _board.ClearBoard();
         SpawnTiles();
     }
@@ -77,22 +53,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void IncreaseScore(int points)
+    private void IncreaseScore(int value)
     {
-        Score += points;
-        if(Score > HighScore)
+        SetScore(_score + value);
+
+        if(_score > _highScore)
         {
             SaveHighScore();
         }
     }
+
     private void SaveHighScore()
-    {        
-        HighScore = Score;
-        PlayerPrefs.SetInt("highscore", HighScore);
+    {
+        SetHighScore(_score);
+        PlayerPrefs.SetInt("highscore", _highScore);
     }
 
     private int LoadHighScore()
     {
         return PlayerPrefs.GetInt("highscore", 0);
+    }
+
+    private void SetScore(int value)
+    {
+        _score = value;
+        _uiController.SetScore(_score);
+    }
+
+    private void SetHighScore(int value)
+    {
+        _highScore = value;
+        _uiController.SetHighScore(_highScore);
     }
 }
