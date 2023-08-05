@@ -41,7 +41,8 @@ public class Tile : MonoBehaviour
         _colorScheme = ColorManager.Instance.NextColor(_colorScheme);
         UpdateTileUI();
 
-        transform.DOScale(transform.localScale * _targetScale, TweeningDuration).SetLoops(2, LoopType.Yoyo);
+        transform.DOComplete();
+        transform.DOScale(_targetScale, TweeningDuration).SetLoops(2, LoopType.Yoyo);
     }
 
 
