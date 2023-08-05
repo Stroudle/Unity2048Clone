@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
     private TextMeshProUGUI _text;
     private ColorScheme _colorScheme;
 
-    private const float _scaleMultipier = 1.1f;
+    private const float _targetScale = 1.1f;
 
     public void MoveTo(Cell cell)
     {
@@ -35,13 +35,13 @@ public class Tile : MonoBehaviour
         transform.DOScale(1, TweeningDuration);
     }
 
-    public void SetTileValue(int value)
+    public void SetMergedTileValue(int value)
     {
         TileValue = value;
         _colorScheme = ColorManager.Instance.NextColor(_colorScheme);
         UpdateTileUI();
 
-        transform.DOScale(transform.localScale * _scaleMultipier, TweeningDuration).SetLoops(2, LoopType.Yoyo);
+        transform.DOScale(transform.localScale * _targetScale, TweeningDuration).SetLoops(2, LoopType.Yoyo);
     }
 
 

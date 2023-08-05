@@ -195,7 +195,7 @@ public class Board : MonoBehaviour
         a.Merge(b.Cell);
 
         int value = b.TileValue * 2;
-        b.SetTileValue(value);
+        b.SetMergedTileValue(value);
         OnIncreaseScore?.Invoke(value);
     }
 }
