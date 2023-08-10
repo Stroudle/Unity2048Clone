@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
+        _uiController.HideGameOverUI();
         SetScore(0);
         _board.ClearBoard();
         SpawnTiles();

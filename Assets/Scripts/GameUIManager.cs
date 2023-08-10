@@ -25,6 +25,12 @@ public class GameUIManager : MonoBehaviour
         });
     }
 
+    public void HideGameOverUI()
+    {
+        _gameOverUI.DOKill();
+        _gameOverUI.alpha = 0;
+    }
+
     public void UpdateScoreUI(int value)
     {
         _scoreText.SetText(value.ToString());
