@@ -38,6 +38,8 @@ public class Tile : MonoBehaviour
     public void SetMergedTileValue(int value)
     {
         TileValue = value;
+        CanMerge = false;
+
         _colorScheme = ColorManager.Instance.NextColor(_colorScheme);
         UpdateTileUI();
 
@@ -53,7 +55,6 @@ public class Tile : MonoBehaviour
             Cell.Tile = null;
         }
         Cell = null;
-        CanMerge = false;
 
         transform.SetAsFirstSibling();
         transform.DOMove(cell.transform.position, TweeningDuration).OnComplete(() => {
