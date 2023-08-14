@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    #region Events
     public delegate void GameOver();
     public event GameOver OnGameOver;
 
     public delegate void IncreaseScore(int value);
     public event IncreaseScore OnIncreaseScore;
+    #endregion
 
+    #region Fields
     [SerializeField]
     private Tile _tilePrefab;
     [SerializeField]
@@ -18,7 +21,9 @@ public class Board : MonoBehaviour
     private CellGrid _grid;
     private List<Tile> _tileList;
     private WeightedRandomGenerator _rng;
+    #endregion
 
+    #region Unity Messages
     private void Awake()
     {
         _grid = GetComponentInChildren<CellGrid>();
@@ -40,7 +45,9 @@ public class Board : MonoBehaviour
         KeyboardInput.OnKeyboardInput -= OnInputRecievedHandler;
         MobileInput.OnMobileInput += OnInputRecievedHandler;
     }
+    #endregion
 
+    #region Public Methods
     public void ClearBoard()
     {
         foreach (var cell in _grid.Cells) 
@@ -65,7 +72,9 @@ public class Board : MonoBehaviour
             _tileList.Add(tile);
         }
     }
+    #endregion
 
+    #region Methods
     private void OnInputRecievedHandler(Vector2Int input)
     {
         MoveTiles(input);
@@ -198,4 +207,5 @@ public class Board : MonoBehaviour
         b.SetMergedTileValue(value);
         OnIncreaseScore?.Invoke(value);
     }
+    #endregion
 }

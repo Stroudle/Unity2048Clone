@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GameUIManager : MonoBehaviour
 {
+    #region Fields
     [SerializeField]
     private TextMeshProUGUI _scoreText, _highScoreText;
 
     private CanvasGroup _gameOverUI;
     private const float _fadeDuration = 0.5f;
+    #endregion
 
     private void Awake()
     {
@@ -17,6 +19,7 @@ public class GameUIManager : MonoBehaviour
         _gameOverUI.alpha = 0f;
     }
 
+    #region Public Methods
     public void ShowGameOverUI()
     {
         _gameOverUI.DOFade(1.0f, _fadeDuration).OnComplete(() =>
@@ -40,4 +43,5 @@ public class GameUIManager : MonoBehaviour
     {
         _highScoreText.SetText(value.ToString());
     }
+    #endregion
 }

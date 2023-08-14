@@ -6,10 +6,13 @@ public class KeyboardInput : MonoBehaviour
     public delegate void KeyboardInputEvent(Vector2Int input);
     public static event KeyboardInputEvent OnKeyboardInput;
 
+    #region Fields
     private PlayerInput _playerInput;
     private InputAction _keyboardHorizontal;
     private InputAction _keyboardVertical;
+    #endregion
 
+    #region Unity Messages
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -28,7 +31,9 @@ public class KeyboardInput : MonoBehaviour
         _keyboardHorizontal.performed -= OnKeyboardInputHorizontal;
         _keyboardVertical.performed -= OnKeyboardInputVertical;
     }
+    #endregion
 
+    #region Methods
     private void OnKeyboardInputHorizontal(InputAction.CallbackContext context)
     {
         Vector2Int input = new((int)context.ReadValue<float>(), 0);
@@ -40,4 +45,5 @@ public class KeyboardInput : MonoBehaviour
         Vector2Int input = new(0, (int)context.ReadValue<float>());
         OnKeyboardInput?.Invoke(input);
     }
+    #endregion
 }

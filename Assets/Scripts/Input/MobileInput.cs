@@ -6,6 +6,7 @@ public class MobileInput : MonoBehaviour
     public delegate void MobileInputEvent(Vector2Int input);
     public static event MobileInputEvent OnMobileInput;
 
+    #region Fields
     [SerializeField]
     private float _minimumDistance = .2f;
     [SerializeField]
@@ -23,7 +24,9 @@ public class MobileInput : MonoBehaviour
     private float _startTime;
     private Vector2 _endPosition;
     private float _endTime;
+    #endregion
 
+    #region Unity Messages
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -44,7 +47,9 @@ public class MobileInput : MonoBehaviour
         _touchContact.started -= SwipeStart;
         _touchContact.canceled -= SwipeCancel;
     }
+    #endregion
 
+    #region Methods
     private void SwipeStart(InputAction.CallbackContext context)
     {
         _startPosition = Utils.ScreenToWorld(_mainCamera, _touchPosition.ReadValue<Vector2>());
@@ -91,4 +96,5 @@ public class MobileInput : MonoBehaviour
             OnMobileInput?.Invoke(Vector2Int.right);
         }
     }
+    #endregion
 }

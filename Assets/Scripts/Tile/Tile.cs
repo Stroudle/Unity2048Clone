@@ -5,18 +5,23 @@ using DG.Tweening;
 
 public class Tile : MonoBehaviour
 {
+    #region Properties
     public Cell Cell { get; private set; }
     public int TileValue { get; private set; }
     public bool CanMerge { get; set; }
+    #endregion
 
     public static readonly float TweeningDuration = 0.1f;
 
+    #region Fields
     private Image _background;
     private TextMeshProUGUI _text;
     private ColorScheme _colorScheme;
 
     private const float _targetScale = 1.1f;
+    #endregion
 
+    #region Public Methods
     public void MoveTo(Cell cell)
     {
         SetCell(cell);
@@ -61,6 +66,9 @@ public class Tile : MonoBehaviour
             Destroy(gameObject);
         });
     }
+    #endregion
+
+    #region Methods
     private void UpdateTileUI()
     {
         _text.SetText(TileValue.ToString());
@@ -78,7 +86,9 @@ public class Tile : MonoBehaviour
         Cell = cell;
         cell.Tile = this;
     }
+    #endregion
 
+    #region Unity Messages
     private void Awake()
     {
         _background = GetComponent<Image>();
@@ -90,4 +100,5 @@ public class Tile : MonoBehaviour
         CanMerge = true;
         transform.localScale = new Vector2(0.1f, 0.1f);
     }
+    #endregion
 }

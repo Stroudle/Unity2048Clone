@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     private const int TileCount = 2;
 
+    #region Unity Messages
     private void Awake()
     {
         SetHighScore(LoadHighScore());
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         NewGame();
     }
+    #endregion
 
     private void GameOver()
     {

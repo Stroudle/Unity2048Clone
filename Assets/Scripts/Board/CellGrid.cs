@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class CellGrid : MonoBehaviour
 {
+    #region Properties
     public CellRow[] Rows { get; private set; }
     public Cell[] Cells { get; private set; }
 
     public int Size => Cells.Length;
     public int Height => Rows.Length;
     public int Width => Size / Height;
+    #endregion
 
     private System.Random _random = new System.Random();
 
+    #region Public Methods
     public Cell GetAdjacentCell(Cell cell, Vector2Int direction)
     {
         Vector2Int coordinates = cell.Coordinates;
@@ -41,7 +44,9 @@ public class CellGrid : MonoBehaviour
         var emptyCells = Cells.Where(cell => !cell.Occupied);
         return emptyCells.OrderBy(_ => _random.Next()).FirstOrDefault();
     }
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
         Rows = GetComponentsInChildren<CellRow>();
@@ -52,6 +57,7 @@ public class CellGrid : MonoBehaviour
     {
         AssignCellCoordinates();
     }
+    #endregion
 
     private void AssignCellCoordinates()
     {
