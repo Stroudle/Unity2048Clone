@@ -12,13 +12,6 @@ public class GameUIManager : MonoBehaviour
     private const float _fadeDuration = 0.5f;
     #endregion
 
-    private void Awake()
-    {
-        _gameOverUI = GetComponentInChildren<CanvasGroup>();
-        _gameOverUI.interactable = false;
-        _gameOverUI.alpha = 0f;
-    }
-
     #region Public Methods
     public void ShowGameOverUI()
     {
@@ -44,4 +37,11 @@ public class GameUIManager : MonoBehaviour
         _highScoreText.SetText(value.ToString());
     }
     #endregion
+
+    private void Awake()
+    {
+        _gameOverUI = GetComponentInChildren<CanvasGroup>();
+        _gameOverUI.interactable = false;
+        _gameOverUI.alpha = 0f;
+    }
 }

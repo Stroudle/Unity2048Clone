@@ -14,6 +14,14 @@ public class GameManager : MonoBehaviour
     private const int TileCount = 2;
     #endregion
 
+    public void NewGame()
+    {
+        _uiController.HideGameOverUI();
+        SetScore(0);
+        _board.ClearBoard();
+        SpawnTiles();
+    }
+
     #region Unity Messages
     private void Awake()
     {
@@ -38,17 +46,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Methods
     private void GameOver()
     {
         _uiController.ShowGameOverUI();
-    }
-
-    public void NewGame()
-    {
-        _uiController.HideGameOverUI();
-        SetScore(0);
-        _board.ClearBoard();
-        SpawnTiles();
     }
 
     private void SpawnTiles()
@@ -91,4 +92,5 @@ public class GameManager : MonoBehaviour
         _highScore = value;
         _uiController.UpdateHighScoreUI(_highScore);
     }
+    #endregion
 }

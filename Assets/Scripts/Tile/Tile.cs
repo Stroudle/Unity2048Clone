@@ -68,6 +68,20 @@ public class Tile : MonoBehaviour
     }
     #endregion
 
+    #region Unity Messages
+    private void Awake()
+    {
+        _background = GetComponent<Image>();
+        _text = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    private void Start()
+    {
+        CanMerge = true;
+        transform.localScale = new Vector2(0.1f, 0.1f);
+    }
+    #endregion
+
     #region Methods
     private void UpdateTileUI()
     {
@@ -85,20 +99,6 @@ public class Tile : MonoBehaviour
 
         Cell = cell;
         cell.Tile = this;
-    }
-    #endregion
-
-    #region Unity Messages
-    private void Awake()
-    {
-        _background = GetComponent<Image>();
-        _text = GetComponentInChildren<TextMeshProUGUI>();
-    }
-
-    private void Start()
-    {
-        CanMerge = true;
-        transform.localScale = new Vector2(0.1f, 0.1f);
     }
     #endregion
 }

@@ -23,30 +23,6 @@ public class Board : MonoBehaviour
     private WeightedRandomGenerator _rng;
     #endregion
 
-    #region Unity Messages
-    private void Awake()
-    {
-        _grid = GetComponentInChildren<CellGrid>();
-        _tileList = new List<Tile>(16);
-
-        _rng = new WeightedRandomGenerator();
-        _rng.AddNumberWithWeight(2, 95.0f);
-        _rng.AddNumberWithWeight(4, 5.0f);
-    }
-
-    private void OnEnable()
-    {
-        KeyboardInput.OnKeyboardInput += OnInputRecievedHandler;
-        MobileInput.OnMobileInput += OnInputRecievedHandler;
-    }
-
-    private void OnDisable() 
-    {
-        KeyboardInput.OnKeyboardInput -= OnInputRecievedHandler;
-        MobileInput.OnMobileInput += OnInputRecievedHandler;
-    }
-    #endregion
-
     #region Public Methods
     public void ClearBoard()
     {
@@ -71,6 +47,30 @@ public class Board : MonoBehaviour
             tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomNumber());
             _tileList.Add(tile);
         }
+    }
+    #endregion
+
+    #region Unity Messages
+    private void Awake()
+    {
+        _grid = GetComponentInChildren<CellGrid>();
+        _tileList = new List<Tile>(16);
+
+        _rng = new WeightedRandomGenerator();
+        _rng.AddNumberWithWeight(2, 95.0f);
+        _rng.AddNumberWithWeight(4, 5.0f);
+    }
+
+    private void OnEnable()
+    {
+        KeyboardInput.OnKeyboardInput += OnInputRecievedHandler;
+        MobileInput.OnMobileInput += OnInputRecievedHandler;
+    }
+
+    private void OnDisable() 
+    {
+        KeyboardInput.OnKeyboardInput -= OnInputRecievedHandler;
+        MobileInput.OnMobileInput += OnInputRecievedHandler;
     }
     #endregion
 
