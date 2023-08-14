@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Board _board;
-    public GameUIManager _uiController;
+    #region Fields
+    [SerializeField]
+    private Board _board;
+    [SerializeField]
+    private GameUIManager _uiController;
 
     private int _score;
     private int _highScore;
 
     private const int TileCount = 2;
+    #endregion
 
     #region Unity Messages
     private void Awake()
