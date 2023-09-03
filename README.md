@@ -11,6 +11,7 @@ Play in browser and download available at [itch.io](https://stroudle42.itch.io/2
 - Tweening
 - Scriptable Objects
 - Mobile support
+- Semantic Commits
 
 ***
 <details>
