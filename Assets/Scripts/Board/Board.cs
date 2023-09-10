@@ -16,7 +16,7 @@ public class Board : MonoBehaviour
     [SerializeField]
     private Tile _tilePrefab;
     [SerializeField]
-    private Transform _tileParentObject;
+    private Transform _tileParentTransform;
 
     private CellGrid _grid;
     private List<Tile> _tileList;
@@ -43,7 +43,7 @@ public class Board : MonoBehaviour
     {
         if(_tileList.Count != _grid.Size)
         {
-            Tile tile = Instantiate(_tilePrefab, _tileParentObject.transform);
+            Tile tile = Instantiate(_tilePrefab, _tileParentTransform.transform);
             tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomNumber());
             _tileList.Add(tile);
         }

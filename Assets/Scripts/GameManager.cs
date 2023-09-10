@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Board _board;
     [SerializeField]
-    private GameUIManager _uiController;
+    private GameUIManager _uiManager;
 
     private int _score;
     private int _highScore;
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        _uiController.HideGameOverUI();
+        _uiManager.HideGameOverUI();
         SetScore(0);
         _board.ClearBoard();
         SpawnTiles();
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     #region Methods
     private void GameOver()
     {
-        _uiController.ShowGameOverUI();
+        _uiManager.ShowGameOverUI();
     }
 
     private void SpawnTiles()
@@ -84,13 +84,13 @@ public class GameManager : MonoBehaviour
     private void SetScore(int value)
     {
         _score = value;
-        _uiController.UpdateScoreUI(_score);
+        _uiManager.UpdateScoreUI(_score);
     }
 
     private void SetHighScore(int value)
     {
         _highScore = value;
-        _uiController.UpdateHighScoreUI(_highScore);
+        _uiManager.UpdateHighScoreUI(_highScore);
     }
     #endregion
 }
