@@ -43,7 +43,7 @@ public class Tile : MonoBehaviour
         transform.DOScale(1, TweeningDuration);
     }
 
-    public void SetMergedTileValue()
+    public void ApplyMerge()
     {
         TileValue = TileValue * 2;
         OnIncreaseScore?.Invoke(TileValue);
@@ -57,7 +57,7 @@ public class Tile : MonoBehaviour
     }
 
 
-    public void Merge(Cell cell)
+    public void MergeInto(Cell cell)
     {
         if(Cell != null)
         {

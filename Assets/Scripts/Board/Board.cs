@@ -155,8 +155,8 @@ public class Board : MonoBehaviour
     private void Merge(Tile a, Tile b)
     {
         _tileList.Remove(a);
-        a.Merge(b.Cell);
-        b.SetMergedTileValue();
+        a.MergeInto(b.Cell);
+        b.ApplyMerge();
     }
     #endregion
 }
