@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     #region Fields
     [SerializeField]
-    private Board _board;
+    private BoardManager _boardManager;
     [SerializeField]
     private GameUIManager _uiManager;
 
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
         _uiManager.HideGameOverUI();
         SetScore(0);
-        _board.ClearBoard();
+        _boardManager.ClearBoard();
         SpawnTiles();
     }
 
@@ -30,14 +30,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _board.OnGameOver += GameOver;
-        _board.OnIncreaseScore += IncreaseScore;
+        _boardManager.OnGameOver += GameOver;
+        Tile.OnIncreaseScore += IncreaseScore;
     }
 
     private void OnDisable()
     {
-        _board.OnGameOver -= GameOver;
-        _board.OnIncreaseScore -= IncreaseScore;
+        _boardManager.OnGameOver -= GameOver;
+        Tile.OnIncreaseScore -= IncreaseScore;
     }
 
     private void Start()
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i = 0; i < TileCount; i++)
         {
-            _board.SpawnTile();
+            _boardManager.SpawnTile();
         }
     }
 

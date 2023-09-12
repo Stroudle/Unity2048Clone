@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e542fd515362ad449ca435b4cbb8ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _board: {fileID: 1568350090}
+  _boardManager: {fileID: 1568350091}
   _uiManager: {fileID: 420186604}
 --- !u!4 &50712569
 Transform:
@@ -2577,6 +2577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1568350089}
+  - component: {fileID: 1568350091}
   - component: {fileID: 1568350090}
   m_Layer: 0
   m_Name: Board
@@ -2624,6 +2625,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilePrefab: {fileID: 6974556952060274348, guid: f6fe8e5f14024ce4089bcc9c6ef75b10, type: 3}
   _tileParentTransform: {fileID: 2031468536}
+--- !u!114 &1568350091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568350088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7aabf3293f32424ea46e37cfd7276ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1645920849
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,9 @@ using DG.Tweening;
 
 public class Tile : MonoBehaviour
 {
+    public delegate void IncreaseScore(int value);
+    public static event IncreaseScore OnIncreaseScore;
+
     #region Properties
     public Cell Cell { get; private set; }
     public int TileValue { get; private set; }
@@ -40,9 +43,10 @@ public class Tile : MonoBehaviour
         transform.DOScale(1, TweeningDuration);
     }
 
-    public void SetMergedTileValue(int value)
+    public void SetMergedTileValue()
     {
-        TileValue = value;
+        TileValue = TileValue * 2;
+        OnIncreaseScore?.Invoke(TileValue);
         CanMerge = false;
 
         _colorScheme = ColorManager.Instance.NextColor(_colorScheme);

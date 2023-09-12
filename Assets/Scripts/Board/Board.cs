@@ -4,29 +4,19 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    #region Events
-    public delegate void GameOver();
-    public event GameOver OnGameOver;
-
-    public delegate void IncreaseScore(int value);
-    public event IncreaseScore OnIncreaseScore;
-    #endregion
-
     #region Fields
     [SerializeField]
     private Tile _tilePrefab;
     [SerializeField]
     private Transform _tileParentTransform;
-
-    private CellGrid _grid;
+    
     private List<Tile> _tileList;
-    private WeightedRandomGenerator _rng;
     #endregion
 
     #region Public Methods
-    public void ClearBoard()
+    public void ClearBoard(CellGrid grid)
     {
-        foreach (var cell in _grid.Cells) 
+        foreach (var cell in grid.Cells) 
         {
             if(cell.Tile != null)
             {
@@ -39,95 +29,83 @@ public class Board : MonoBehaviour
         _tileList.Clear();
     }
 
-    public void SpawnTile()
+    public void SpawnTile(CellGrid grid, WeightedRandomGenerator rng)
     {
-        if(_tileList.Count != _grid.Size)
+        if(_tileList.Count != grid.Size)
         {
             Tile tile = Instantiate(_tilePrefab, _tileParentTransform.transform);
-            tile.Spawn(_grid.GetRandomEmptyCell(), _rng.GetRandomNumber());
+            tile.Spawn(grid.GetRandomEmptyCell(), rng.GetRandomNumber());
             _tileList.Add(tile);
         }
     }
-    #endregion
 
-    #region Unity Messages
-    private void Awake()
-    {
-        _grid = GetComponentInChildren<CellGrid>();
-        _tileList = new List<Tile>(16);
-
-        _rng = new WeightedRandomGenerator();
-        _rng.AddNumberWithWeight(2, 95.0f);
-        _rng.AddNumberWithWeight(4, 5.0f);
-    }
-
-    private void OnEnable()
-    {
-        KeyboardInput.OnKeyboardInput += OnInputRecievedHandler;
-        MobileInput.OnMobileInput += OnInputRecievedHandler;
-    }
-
-    private void OnDisable() 
-    {
-        KeyboardInput.OnKeyboardInput -= OnInputRecievedHandler;
-        MobileInput.OnMobileInput += OnInputRecievedHandler;
-    }
-    #endregion
-
-    #region Methods
-    private void OnInputRecievedHandler(Vector2Int input)
-    {
-        MoveTiles(input);
-    }
-
-    private void MoveTiles(Vector2Int direction)
+    public IEnumerator MoveTiles(CellGrid grid, WeightedRandomGenerator rng, Vector2Int direction)
     {
         int xOrigin, yOrigin, xStep, yStep;
-        CalculateDirectionValues(direction, out xOrigin, out yOrigin, out xStep, out yStep);
+        CalculateDirectionValues(grid, direction, out xOrigin, out yOrigin, out xStep, out yStep);
 
         bool boardChanged = false;
 
-        for(int x = xOrigin; x >= 0 && x < _grid.Width; x += xStep)
+        for(int x = xOrigin; x >= 0 && x < grid.Width; x += xStep)
         {
-            for(int y = yOrigin; y >= 0 && y < _grid.Height; y += yStep)
+            for(int y = yOrigin; y >= 0 && y < grid.Height; y += yStep)
             {
-                Cell cell = _grid.GetCell(x, y);
+                Cell cell = grid.GetCell(x, y);
 
                 if(cell.Occupied)
                 {
-                    boardChanged |= MoveTile(cell.Tile, direction);
+                    boardChanged |= MoveTile(grid, cell.Tile, direction);
                 }
             }
         }
 
-        if(boardChanged)
-        {
-            StartCoroutine(WaitForChanges());
-        }
+        yield return boardChanged ? new WaitForSeconds(Tile.TweeningDuration) : null;
     }
 
-    private void CalculateDirectionValues(Vector2Int direction, out int xOrigin, out int yOrigin, out int xStep, out int yStep)
-    {
-        xOrigin = direction.x == 1 ? _grid.Width - 1 : 0;
-        xStep = direction.x == 1 ? -1 : 1;
-
-        yOrigin = direction.y == -1 ? _grid.Height - 1 : 0;
-        yStep = direction.y == -1 ? -1 : 1;
-    }
-
-    private IEnumerator WaitForChanges()
-    {
-        InputBlocker.BlockInputs();
-        yield return new WaitForSeconds(Tile.TweeningDuration);
-        InputBlocker.UnblockInputs();
-        FinalizeRound();
-    }
-
-    private void FinalizeRound()
+    public void FinalizeRound(CellGrid grid, WeightedRandomGenerator rng)
     {
         ResetTiles();
-        SpawnTile();
-        CheckForGameOver();
+        SpawnTile(grid, rng);
+    }
+
+    public bool IsGameOver(CellGrid grid)
+    {
+        if(_tileList.Count != grid.Size)
+        {
+            return false;
+        }
+
+        foreach(var tile in _tileList)
+        {
+            Vector2Int[] directions = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+
+            foreach(var direction in directions)
+            {
+                Cell adjacentCell = grid.GetAdjacentCell(tile.Cell, direction);
+                if(adjacentCell != null && CanMerge(tile, adjacentCell.Tile))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    #endregion
+
+    private void Awake()
+    {
+        _tileList = new List<Tile>(16);
+    }
+
+    #region Methods
+    private void CalculateDirectionValues(CellGrid grid, Vector2Int direction, out int xOrigin, out int yOrigin, out int xStep, out int yStep)
+    {
+        xOrigin = direction.x == 1 ? grid.Width - 1 : 0;
+        xStep = direction.x == 1 ? -1 : 1;
+
+        yOrigin = direction.y == -1 ? grid.Height - 1 : 0;
+        yStep = direction.y == -1 ? -1 : 1;
     }
 
     private void ResetTiles()
@@ -138,34 +116,10 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void CheckForGameOver()
-    {
-        if(_tileList.Count != _grid.Size)
-        {
-            return;
-        }
-
-        foreach(var tile in _tileList)
-        {
-            Vector2Int[] directions = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
-
-            foreach(var direction in directions)
-            {
-                Cell adjacentCell = _grid.GetAdjacentCell(tile.Cell, direction);
-                if(adjacentCell != null && CanMerge(tile, adjacentCell.Tile))
-                {
-                    return;
-                }
-            }
-        }
-
-        OnGameOver?.Invoke();
-    }
-
-    private bool MoveTile(Tile tile, Vector2Int direction)
+    private bool MoveTile(CellGrid grid, Tile tile, Vector2Int direction)
     {
         Cell destination = null;
-        Cell adjacent = _grid.GetAdjacentCell(tile.Cell, direction);
+        Cell adjacent = grid.GetAdjacentCell(tile.Cell, direction);
 
         while(adjacent != null)
         {
@@ -181,7 +135,7 @@ public class Board : MonoBehaviour
             }
 
             destination  = adjacent;
-            adjacent = _grid.GetAdjacentCell(adjacent, direction);
+            adjacent = grid.GetAdjacentCell(adjacent, direction);
         }
 
         if(destination != null)
@@ -202,10 +156,7 @@ public class Board : MonoBehaviour
     {
         _tileList.Remove(a);
         a.Merge(b.Cell);
-
-        int value = b.TileValue * 2;
-        b.SetMergedTileValue(value);
-        OnIncreaseScore?.Invoke(value);
+        b.SetMergedTileValue();
     }
     #endregion
 }
