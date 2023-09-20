@@ -1,40 +1,44 @@
+using System;
 using System.Collections.Generic;
 
 public class WeightedRandomGenerator
 {
-    private Dictionary<int, float> _numberWeights;
+    private List<WeightedNumber> _weightedNumbers;
 
-    public WeightedRandomGenerator()
+    public WeightedRandomGenerator(List<WeightedNumber> weightedNumbers)
     {
-        _numberWeights = new Dictionary<int, float>();
-    }
-
-    public void AddNumberWithWeight(int number, float percentage)
-    {
-        _numberWeights[number] = percentage;
+        _weightedNumbers = weightedNumbers;
     }
 
     public int GetRandomNumber()
     {
+
         float totalWeight = 0f;
 
-        foreach(var kvp in _numberWeights)
+        foreach(var numberWithWeight in _weightedNumbers)
         {
-            totalWeight += kvp.Value;
+            totalWeight += numberWithWeight.weight;
         }
 
         float randomValue = UnityEngine.Random.Range(0f, totalWeight);
         float cumulativeWeight = 0f;
 
-        foreach(var kvp in _numberWeights)
+        foreach(var numberWithWeight in _weightedNumbers)
         {
-            cumulativeWeight += kvp.Value;
+            cumulativeWeight += numberWithWeight.weight;
             if(randomValue <= cumulativeWeight)
             {
-                return kvp.Key;
+                return numberWithWeight.number;
             }
         }
 
-        return 0;
+        return _weightedNumbers[0].number;
     }
+}
+
+[Serializable]
+public struct WeightedNumber
+{
+    public int number;
+    public float weight;
 }

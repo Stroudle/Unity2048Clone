@@ -14,24 +14,25 @@ public class Tile : MonoBehaviour
     public bool CanMerge { get; set; }
     #endregion
 
-    public static readonly float TweeningDuration = 0.1f;
 
     #region Fields
+    [SerializeField]
+    private float _targetScale;
+
+    private float _tweenDuration;
     private Image _background;
     private TextMeshProUGUI _text;
     private ColorScheme _colorScheme;
-
-    private const float _targetScale = 1.1f;
     #endregion
 
     #region Public Methods
     public void MoveTo(Cell cell)
     {
         SetCell(cell);
-        transform.DOMove(Cell.transform.position, TweeningDuration);
+        transform.DOMove(Cell.transform.position, _tweenDuration);
     }
 
-    public void Spawn(Cell cell, int value)
+    public void Spawn(Cell cell, int value, float tweeningDuration)
     {
         SetCell(cell);
         transform.position = Cell.transform.position;
@@ -40,7 +41,8 @@ public class Tile : MonoBehaviour
         _colorScheme = ColorManager.Instance.GetColor(value);
         UpdateTileUI();
 
-        transform.DOScale(1, TweeningDuration);
+        _tweenDuration = tweeningDuration;
+        transform.DOScale(1, _tweenDuration);
     }
 
     public void ApplyMerge()
@@ -53,7 +55,7 @@ public class Tile : MonoBehaviour
         UpdateTileUI();
 
         transform.DOComplete();
-        transform.DOScale(_targetScale, TweeningDuration).SetLoops(2, LoopType.Yoyo);
+        transform.DOScale(_targetScale, _tweenDuration).SetLoops(2, LoopType.Yoyo);
     }
 
 
@@ -66,7 +68,7 @@ public class Tile : MonoBehaviour
         Cell = null;
 
         transform.SetAsFirstSibling();
-        transform.DOMove(cell.transform.position, TweeningDuration).OnComplete(() => {
+        transform.DOMove(cell.transform.position, _tweenDuration).OnComplete(() => {
             Destroy(gameObject);
         });
     }

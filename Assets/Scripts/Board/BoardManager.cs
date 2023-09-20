@@ -6,10 +6,12 @@ public class BoardManager : MonoBehaviour
     public delegate void GameOver();
     public event GameOver OnGameOver;
 
+
     #region Fields
+    private WeightedRandomGenerator _weightedRng;
+    private float _tweenDuration;
     private Board _board;
     private CellGrid _grid;
-    private WeightedRandomGenerator _rng;
     #endregion
 
     public void ClearBoard()
@@ -19,7 +21,13 @@ public class BoardManager : MonoBehaviour
 
     public void SpawnTile()
     {
-        _board.SpawnTile(_grid, _rng);
+        _board.SpawnTile(_grid, _weightedRng, _tweenDuration);
+    }
+
+    public void SetupBoard(WeightedRandomGenerator rng, float tweenDuration)
+    {
+        _weightedRng = rng;
+        _tweenDuration = tweenDuration;
     }
 
     #region Unity Methods
@@ -27,9 +35,6 @@ public class BoardManager : MonoBehaviour
     {
         _board = GetComponent<Board>();
         _grid = GetComponentInChildren<CellGrid>();
-        _rng = new WeightedRandomGenerator();
-        _rng.AddNumberWithWeight(2, 95.0f);
-        _rng.AddNumberWithWeight(4, 5.0f);
     }
     private void OnEnable()
     {
@@ -52,14 +57,15 @@ public class BoardManager : MonoBehaviour
     private IEnumerator MoveTiles(Vector2Int input)
     {
         InputBlocker.BlockInputs();
-        yield return _board.MoveTiles(_grid, _rng, input);
+        yield return _board.MoveTiles(_grid, input, _tweenDuration);
         InputBlocker.UnblockInputs();
         RoundEnd();
     }
 
     private void RoundEnd()
     {
-        _board.FinalizeRound(_grid, _rng);
+        _board.ResetTiles();
+        _board.SpawnTile(_grid, _weightedRng, _tweenDuration);
         if(_board.IsGameOver(_grid))
         {
             OnGameOver?.Invoke();

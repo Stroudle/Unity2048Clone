@@ -29,17 +29,17 @@ public class Board : MonoBehaviour
         _tileList.Clear();
     }
 
-    public void SpawnTile(CellGrid grid, WeightedRandomGenerator rng)
+    public void SpawnTile(CellGrid grid, WeightedRandomGenerator rng, float tweenDuration)
     {
         if(_tileList.Count != grid.Size)
         {
             Tile tile = Instantiate(_tilePrefab, _tileParentTransform.transform);
-            tile.Spawn(grid.GetRandomEmptyCell(), rng.GetRandomNumber());
+            tile.Spawn(grid.GetRandomEmptyCell(), rng.GetRandomNumber(), tweenDuration);
             _tileList.Add(tile);
         }
     }
 
-    public IEnumerator MoveTiles(CellGrid grid, WeightedRandomGenerator rng, Vector2Int direction)
+    public IEnumerator MoveTiles(CellGrid grid, Vector2Int direction, float tweenDuration)
     {
         int xOrigin, yOrigin, xStep, yStep;
         CalculateDirectionValues(grid, direction, out xOrigin, out yOrigin, out xStep, out yStep);
@@ -59,13 +59,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        yield return boardChanged ? new WaitForSeconds(Tile.TweeningDuration) : null;
-    }
-
-    public void FinalizeRound(CellGrid grid, WeightedRandomGenerator rng)
-    {
-        ResetTiles();
-        SpawnTile(grid, rng);
+        yield return boardChanged ? new WaitForSeconds(tweenDuration) : null;
     }
 
     public bool IsGameOver(CellGrid grid)
@@ -108,7 +102,7 @@ public class Board : MonoBehaviour
         yStep = direction.y == -1 ? -1 : 1;
     }
 
-    private void ResetTiles()
+    public void ResetTiles()
     {
         foreach(var tile in _tileList)
         {

@@ -4,14 +4,14 @@ public class GameManager : MonoBehaviour
 {
     #region Fields
     [SerializeField]
+    private GameSettings _gameSettings;
+    [SerializeField]
     private BoardManager _boardManager;
     [SerializeField]
     private GameUIManager _uiManager;
 
     private int _score;
     private int _highScore;
-
-    private const int TileCount = 2;
     #endregion
 
     public void NewGame()
@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     #region Unity Messages
     private void Awake()
     {
+        var rng = new WeightedRandomGenerator(_gameSettings.initialTileWeights);
+        _boardManager.SetupBoard(rng, _gameSettings.tweenDuration);
         SetHighScore(LoadHighScore());
     }
 
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnTiles()
     {
-        for(int i = 0; i < TileCount; i++)
+        for(int i = 0; i < _gameSettings.initialTileCount; i++)
         {
             _boardManager.SpawnTile();
         }
